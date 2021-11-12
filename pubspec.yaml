@@ -1,0 +1,15 @@
+name: albiruni
+description: A wrapper to easily access IIUM's Course Schedule website data.
+version: 1.0.0
+repository: https://github.com/iqfareez/albiruni
+
+environment:
+  sdk: ">=2.14.4 <3.0.0"
+
+dev_dependencies:
+  lints: ^1.0.0
+  test: ^1.16.0
+dependencies:
+  html: ^0.15.0
+  http: ^0.13.4
+  intl: ^0.17.0
