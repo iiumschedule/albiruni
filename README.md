@@ -11,7 +11,7 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
-A wrapper to easily access [IIUM's Course Schedule](http://albiruni.iium.edu.my/myapps/StudentOnline/schedule1.php) website data.
+A wrapper to easily access [IIUM's Course Schedule](https://albiruni.iium.edu.my/myapps/StudentOnline/schedule1.php) website data.
 
 Thank you [**@PlashSpeed-Aiman**](https://github.com/PlashSpeed-Aiman) for the [code](https://github.com/PlashSpeed-Aiman/IIUMCourseScheduleApp) foundation.
 
@@ -35,6 +35,8 @@ var subjects = await albiruni.fetch();
 ```
 
 More example can be found in `/example` folder.
+
+<!-- Letak table berkenaan parameters -->
 
 ## Additional information
 

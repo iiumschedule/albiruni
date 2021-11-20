@@ -1,5 +1,6 @@
 import 'day_time.dart';
 
+/// Contains useful data for a particular subject.
 class Subject {
   /// Course Code. Example: "MCTE 3373"
   String code;

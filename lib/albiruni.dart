@@ -1,6 +1,4 @@
-/// Support for doing something awesome.
-///
-/// More dartdocs go here.
+/// Albiruni library
 library albiruni;
 
 export 'src/albiruni_base.dart';
