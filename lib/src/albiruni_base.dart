@@ -42,15 +42,18 @@ class Albiruni {
         "&ctype=%3C";
   }
 
-  final _baseUrl =
-      'https://albiruni.iium.edu.my/myapps/StudentOnline/schedule1.php';
+  final _baseUrl = 'albiruni.iium.edu.my/myapps/StudentOnline/schedule1.php';
+  final _proxyUrl = 'cors-anywhere-iium.herokuapp.com/';
 
   /// Fetch a list of subjects based on your specification.
   ///
   /// [course] is optional. Example: "AAD 3190", "MCTE 3312". The 4 digit number can be omitted. Example: "EECE".
   ///
   /// One page holds about 50 entries. Navigate to the next page using the [page] parameter. Default is `1`.
-  Future<List<Subject>> fetch({String? course, int page = 1}) async {
+  ///
+  /// if [useProxy] is set to true, request to albiruni will go through a proxy server. Useful when using dealing with CORS issue.
+  Future<List<Subject>> fetch(
+      {String? course, int page = 1, bool useProxy = false}) async {
     if (course != null) {
       course.replaceFirst(' ', '+').toUpperCase();
     } else {
@@ -58,7 +61,8 @@ class Albiruni {
     }
     var extraParams = "&view=" + (page * 50).toString() + "&course=" + course;
 
-    var finalUrl = _baseUrl + _basicParams + extraParams;
+    var finalUrl =
+        'https://${useProxy ? _proxyUrl : ''}$_baseUrl$_basicParams$extraParams';
     // print('Query URL: $finalUrl');
 
     List<Subject> _subjects = [];
@@ -150,7 +154,8 @@ class Albiruni {
   /// `true` will return if there is atleast one subject in the current scope.
   Future<bool> preflight() async {
     var firstPage = "&view=50";
-    var res = await http.get(Uri.parse(_baseUrl + _basicParams + firstPage));
+    var res = await http
+        .get(Uri.parse('https://' + _baseUrl + _basicParams + firstPage));
     var document = parse(res.body);
     var elements = document.getElementsByTagName("tbody");
 
