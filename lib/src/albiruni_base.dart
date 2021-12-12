@@ -1,6 +1,8 @@
-import '../src/model/subject.dart';
+import 'package:albiruni/src/util/exceptions.dart';
 import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
+
+import '../src/model/subject.dart';
 import 'model/day_time.dart';
 import 'util/date_time_util.dart';
 
@@ -25,6 +27,8 @@ class Albiruni {
   /// Some kuliiyah may not have semester 3.
   int semester;
 
+  late String semShort;
+
   late final String _basicParams;
 
   // Instantiate Albiruni object. All parameters are required.
@@ -40,6 +44,9 @@ class Albiruni {
         "&ses=" +
         session +
         "&ctype=%3C";
+    semShort = session.split('/').first.substring(2) +
+        '/' +
+        session.split('/').first.substring(2);
   }
 
   final _baseUrl = 'albiruni.iium.edu.my/myapps/StudentOnline/schedule1.php';
@@ -75,7 +82,8 @@ class Albiruni {
     try {
       elements = elements[1].children;
     } on RangeError {
-      throw Exception("Body is empty. Subject not found/offered ");
+      throw EmptyBodyException(
+          message: "Body is empty. Subject not found/offered");
     }
 
     // Iteratoing each row to parse the contents
@@ -138,13 +146,17 @@ class Albiruni {
           chr: double.parse(chr),
           venue: venue == '-' ? null : venue,
           lect: lect,
-          dayTime: dayTime.toSet().toList(), // remove duplicated DayTime
+          dayTime: dayTime.toSet().toList()
+            ..sort((a, b) => a!.day.compareTo(b!.day)),
+          // remove duplicated DayTime
+          // and sort the day (ie, Monday should come first and so on)
         ),
       );
     }
     if (_subjects.isEmpty) {
-      throw Exception(
-          "No subjects found on this page. Reason included but not limited to 1) You may have passed the end of the pages 2) Course is not offered 3) Searching cours in wrong Kuliyyah/semester");
+      throw NoSubjectsException(
+          message:
+              "No subjects found on this page. Reason included but not limited to 1) You may have passed the end of the pages 2) Course is not offered 3) Searching cours in wrong Kuliyyah/semester");
     }
     return _subjects;
   }

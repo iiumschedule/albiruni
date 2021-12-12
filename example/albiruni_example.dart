@@ -21,7 +21,7 @@ void subjectsFirstPage(Albiruni query) async {
 
 /// Subject can be search by their course code.
 void searchSubject(Albiruni query) async {
-  var subjects = await query.fetch(course: "AAR 3101");
+  var subjects = await query.fetch(course: "aar3101".toAlbiruniFormat());
   for (var subject in subjects) {
     print(subject.data);
   }

@@ -1,3 +1,4 @@
+/// The Day & Time for a subject
 class DayTime {
   /// Day in integer. 0 is Sunday, 1 is Monday and so on.
   int day;

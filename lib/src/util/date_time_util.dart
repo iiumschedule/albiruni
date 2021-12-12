@@ -1,7 +1,9 @@
 import 'package:albiruni/src/model/day_time.dart';
 import 'package:intl/intl.dart';
 
+/// Utility classes to parse raw data to proper data
 class DateTimeUtil {
+  /// Map day in String to integers
   static int dayMap(String day) {
     switch (day) {
       case 'MON':
@@ -27,6 +29,7 @@ class DateTimeUtil {
     }
   }
 
+  /// Parse weirdly formatted time in String in [DayTime] object
   static DayTime? parseDayTime(String text) {
     bool isAM = text.contains("AM");
 
