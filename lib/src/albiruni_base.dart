@@ -10,12 +10,7 @@ import 'util/date_time_util.dart';
 ///
 /// Base code are ported from https://github.com/PlashSpeed-Aiman/IIUMCourseScheduleApp
 class Albiruni {
-  /// List of available kulliyah:
-  /// "AED", "BRIDG", "CFL", "CCAC", "EDUC", "ENGIN", "ECONS", "KICT", "IRKHS", "KLM", "LAWS"
-  ///
-  /// Refer to: http://albiruni.iium.edu.my/myapps/StudentOnline/schedule1.php
-  String kulliyah;
-  // Semester.
+  // a.k.a year.
   ///
   /// Example: "2020/2021", "2021/2022", etc.
   ///
@@ -33,13 +28,11 @@ class Albiruni {
 
   // Instantiate Albiruni object. All parameters are required.
   Albiruni({
-    required this.kulliyah,
     required this.semester,
     required this.session,
   }) : super() {
-    _basicParams = "?action=view&kuly=" +
-        kulliyah.toUpperCase() +
-        "&sem=" +
+    _basicParams = "?action=view"
+            "&sem=" +
         semester.toString() +
         "&ses=" +
         session +
@@ -59,14 +52,19 @@ class Albiruni {
   /// One page holds about 50 entries. Navigate to the next page using the [page] parameter. Default is `1`.
   ///
   /// if [useProxy] is set to true, request to albiruni will go through a proxy server. Useful when using dealing with CORS issue.
-  Future<List<Subject>> fetch(
+  Future<List<Subject>> fetch(String kulliyah,
       {String? course, int page = 1, bool useProxy = false}) async {
     if (course != null) {
       course.replaceFirst(' ', '+').toUpperCase();
     } else {
       course = '';
     }
-    var extraParams = "&view=" + (page * 50).toString() + "&course=" + course;
+    var extraParams = "&kuly=" +
+        kulliyah +
+        "&view=" +
+        (page * 50).toString() +
+        "&course=" +
+        course;
 
     var finalUrl =
         'https://${useProxy ? _proxyUrl : ''}$_baseUrl$_basicParams$extraParams';
@@ -161,13 +159,14 @@ class Albiruni {
     return _subjects;
   }
 
-  /// Check if subject on the current scope is available.
+  /// Check if subject on the current scope (kulliyah, semester & session) is available.
   ///
   /// `true` will return if there is atleast one subject in the current scope.
-  Future<bool> preflight() async {
+  Future<bool> preflight(String kulliyah) async {
     var firstPage = "&view=50";
-    var res = await http
-        .get(Uri.parse('https://' + _baseUrl + _basicParams + firstPage));
+    var kull = "&kuly=$kulliyah";
+    var res = await http.get(
+        Uri.parse('https://' + _baseUrl + _basicParams + kull + firstPage));
     var document = parse(res.body);
     var elements = document.getElementsByTagName("tbody");
 

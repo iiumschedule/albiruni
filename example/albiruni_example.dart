@@ -1,19 +1,20 @@
 import 'package:albiruni/albiruni.dart';
 
 void main() {
-  var albiruni = Albiruni(kulliyah: "AED", semester: 1, session: "2021/2022");
+  // initiate albiruni class with session & semester
+  var albiruni = Albiruni(semester: 1, session: "2021/2022");
 
   // comment/uncomment to test it
 
   subjectsFirstPage(albiruni);
-  // searchSubject(albiruni);
-  // allSubjects(albiruni);
-  // testPreflight();
+  searchSubject(albiruni);
+  allSubjects(albiruni);
+  testPreflight();
 }
 
 /// Print all the subjects on first page
 void subjectsFirstPage(Albiruni query) async {
-  var subjects = await query.fetch();
+  var subjects = await query.fetch("ENGIN");
   for (var subject in subjects) {
     print(subject.data);
   }
@@ -21,7 +22,8 @@ void subjectsFirstPage(Albiruni query) async {
 
 /// Subject can be search by their course code.
 void searchSubject(Albiruni query) async {
-  var subjects = await query.fetch(course: "aar3101".toAlbiruniFormat());
+  var subjects =
+      await query.fetch("IRKHS", course: "rkud4995".toAlbiruniFormat());
   for (var subject in subjects) {
     print(subject.data);
   }
@@ -36,7 +38,7 @@ void allSubjects(Albiruni query) async {
   // loop until it reached page with no data
   while (true) {
     try {
-      var res = await query.fetch(page: i);
+      var res = await query.fetch("CCAC", page: i);
       courseCodes.addAll(res.map((e) => e.code));
     } catch (e) {
       print('Error is thrown here. Mark the end of the subjects in a page.');
@@ -51,8 +53,7 @@ void allSubjects(Albiruni query) async {
 
 /// Quick test to see of requested scope is available/valid
 void testPreflight() async {
-  var anotherAlbiruniInstance =
-      Albiruni(kulliyah: "ENGIN", semester: 1, session: "2021/2022");
+  var anotherAlbiruniInstance = Albiruni(semester: 1, session: "2021/2022");
 
-  print(await anotherAlbiruniInstance.preflight());
+  print(await anotherAlbiruniInstance.preflight("KICT"));
 }

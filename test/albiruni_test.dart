@@ -4,8 +4,7 @@ import 'package:test/test.dart';
 void main() {
   test('Reachability', () async {
     final awesome =
-        await Albiruni(kulliyah: "AED", session: "2020/2021", semester: 1)
-            .fetch();
+        await Albiruni(session: "2020/2021", semester: 1).fetch("AED");
     expect(awesome, isNotEmpty);
   });
 }

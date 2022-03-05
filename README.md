@@ -25,43 +25,50 @@ Thank you [**@PlashSpeed-Aiman**](https://github.com/PlashSpeed-Aiman) for the [
 
   ```dart
   // Create albiruni instance
-  Albiruni albiruni = Albiruni(kulliyah: "ECONS", semester: 1, session: "2020/2021");
+  Albiruni albiruni = Albiruni(semester: 1, session: "2021/2022");
   // Use methods available in the classes
-  var subjects = await albiruni.fetch();
+  var subjects = await albiruni.fetch("ECONS");
   ```
 
 - To filter/search for a particular subject, use the `course` parameter.
 
   ```dart
-  fetch(course: "ECON 1140");
+  fetch("ECONS", course: "ECON 1140");
   ```
 
 - Be creative. Let say you want to filter the courses for third year subjects only.
 
   ```dart
-  fetch(course: "CCUB 3");
+  fetch("ECONS", course: "CCUB 3");
   ```
 
 - If you receiving input from user, it is recommended to use `.toAlbiruniFormat()` method.
 
   ```dart
   userInput = "ccub2621";
-  fetch(course: userInput.toAlbiruniFormat());
+  fetch("CCAC", course: userInput.toAlbiruniFormat());
   ```
 
 - Get that `XMLHttpRequest` again? Urgh. Fear no more, set `useProxy` to true. (Implemented using [cors-anywhere](https://github.com/Rob--W/cors-anywhere))
 
   ```dart
-  fetch(course: "MCTE 3271", useProxy: true);
+  fetch("ENGIN", course: "MCTE 3271", useProxy: true);
   ```
 
 - I think that's it for the basic usage of this library, of course, you can always discover more. You can drop your enquiries in [issues](https://github.com/iqfareez/albiruni/issues) if you have any.
 
 More example can be found in `/example` folder.
 
+<!-- todo: tmbah ni nnti -->
+
+<!-- List of available kulliyah:
+   "AED", "BRIDG", "CFL", "CCAC", "EDUC", "ENGIN", "ECONS", "KICT", "IRKHS", "KLM", "LAWS"
+  
+   Refer to: https://albiruni.iium.edu.my/myapps/StudentOnline/schedule1.php -->
+
 <!-- Letak table berkenaan parameters -->
 
 ## Additional information
 
-- [IIUM Course Schedule Portal](http://albiruni.iium.edu.my/myapps/StudentOnline/schedule1.php)
+- [IIUM Course Schedule Portal](https://albiruni.iium.edu.my/myapps/StudentOnline/schedule1.php)
 - [IIUM Schedule App](https://github.com/iqfareez/flutter_iium_schedule) (WIP)
