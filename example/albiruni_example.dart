@@ -7,16 +7,16 @@ void main() {
   // comment/uncomment to test it
 
   subjectsFirstPage(albiruni);
-  searchSubject(albiruni);
-  allSubjects(albiruni);
-  testPreflight();
+  // searchSubject(albiruni);
+  // allSubjects(albiruni);
+  // testPreflight();
 }
 
 /// Print all the subjects on first page
 void subjectsFirstPage(Albiruni query) async {
   var subjects = await query.fetch("ENGIN");
   for (var subject in subjects) {
-    print(subject.data);
+    print(subject);
   }
 }
 
@@ -25,7 +25,7 @@ void searchSubject(Albiruni query) async {
   var subjects =
       await query.fetch("IRKHS", course: "rkud4995".toAlbiruniFormat());
   for (var subject in subjects) {
-    print(subject.data);
+    print(subject);
   }
 }
 

@@ -3,25 +3,25 @@ import 'day_time.dart';
 /// Contains useful data for a particular subject.
 class Subject {
   /// Course Code. Example: "MCTE 3373"
-  String code;
+  late String code;
 
   /// Name of the course. Example: "INDUSTRIAL AUTOMATION"
-  String title;
+  late String title;
 
   /// Venue. It can be null
   String? venue;
 
   /// Section
-  int sect;
+  late int sect;
 
   /// Credit hour
-  double chr;
+  late double chr;
 
   /// List of lecturer(s) teaching the subject
-  List<String> lect;
+  late List<String> lect;
 
   /// Day and Time for the class. It can be null.
-  List<DayTime?> dayTime;
+  late List<DayTime?> dayTime;
 
   Subject({
     required this.code,
@@ -33,16 +33,30 @@ class Subject {
     required this.dayTime,
   });
 
-  // For printing to the console
-  Map<String, dynamic> get data => {
-        'code': code,
-        'sect': sect,
-        'title': title,
-        'chr': chr,
-        'venue': venue,
-        'lect': lect,
-        'dayTime': dayTime
-            .map((e) => '${e?.day}, ${e?.startTime}, ${e?.endTime}')
-            .toList(),
-      };
+  Subject.fromJson(Map<String, dynamic> json) {
+    code = json["code"];
+    sect = json["sect"];
+    title = json["title"];
+    chr = json["chr"];
+    venue = json["venue"];
+    lect = List<String>.from(json["lect"]);
+    dayTime =
+        (json["dayTime"] as List).map((e) => DayTime.fromJson(e)).toList();
+  }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> data = {};
+    data["code"] = code;
+    data["sect"] = sect;
+    data["title"] = title;
+    data["chr"] = chr;
+    data["venue"] = venue;
+    data["lect"] = lect;
+    data["dayTime"] = dayTime;
+    return data;
+  }
+
+  @override
+  String toString() =>
+      "{code: $code,sect: $sect, title: $title, chr: $chr ,venue : $venue, lect : $lect, dayTime: $dayTime}";
 }

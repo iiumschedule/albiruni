@@ -1,3 +1,8 @@
+## 1.1.2
+
+- :boom: **BREAKING CHANGES** - `.read` (on **DayTime**) and `.data` (on **Subject**) getter is removed. Added `.toString()` overrides on both.
+- Added `.toJson()` and `.fromJson()` on both **Subject** and **DayTime** class.
+
 ## 1.1.0
 
 - :boom: **BREAKING CHANGES** - Kuliyyah parameter now is seperated from the albiruni constructor.
@@ -11,7 +16,6 @@
   var albiruni = Albiruni(semester: 2, session: "2021/2022");
   var subjects = await albiruni.fetch("AED");
   ```
-
 
 ## 1.0.2
 

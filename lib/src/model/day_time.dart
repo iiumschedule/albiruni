@@ -1,18 +1,29 @@
 /// The Day & Time for a subject
 class DayTime {
   /// Day in integer. 0 is Sunday, 1 is Monday and so on.
-  int day;
+  late int day;
 
   /// Starting time of the class
-  String startTime;
+  late String startTime;
 
   /// Ending time of the class.
-  String endTime;
+  late String endTime;
 
   DayTime({required this.day, required this.startTime, required this.endTime});
 
-  Map<String, dynamic> get read =>
-      {'day': day, 'startTime': startTime, 'endTime': endTime};
+  DayTime.fromJson(Map<String, dynamic> json) {
+    day = json["day"];
+    startTime = json["startTime"];
+    endTime = json["endTime"];
+  }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> data = {};
+    data["day"] = day;
+    data["startTime"] = startTime;
+    data["endTime"] = endTime;
+    return data;
+  }
 
   @override
   get hashCode => '$day, $startTime'.hashCode;
@@ -24,6 +35,9 @@ class DayTime {
         startTime == other.startTime &&
         endTime == other.endTime;
   }
+
+  @override
+  String toString() => "{day: $day, startTime: $startTime, endTime: $endTime}";
 }
 
 class TempDayTime {

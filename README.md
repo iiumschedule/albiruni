@@ -57,13 +57,38 @@ Thank you [**@PlashSpeed-Aiman**](https://github.com/PlashSpeed-Aiman) for the [
 
 - I think that's it for the basic usage of this library, of course, you can always discover more. You can drop your enquiries in [issues](https://github.com/iqfareez/albiruni/issues) if you have any.
 
+- Parse the subjects data from Json string? Not a problem!
+  Say you have this json:
+  ```json
+  {
+    "code": "CHEN 1212",
+    "sect": 1,
+    "title": "THERMODYNAMICS",
+    "chr": 2.0,
+    "venue": null,
+    "lect": [
+      "DR. MOHD. FIRDAUS BIN ABD. WAHAB",
+      "ASSOC. PROF. DR. NOR FADHILLAH BT. MOHAMED AZMIN"
+    ],
+    "dayTime": [
+      { "day": 1, "startTime": "11:30", "endTime": "12:50" },
+      { "day": 3, "startTime": "11:30", "endTime": "12:50" }
+    ]
+  }
+  ```
+  Parse it like follow:
+  ```dart
+  var data = <yourjson>
+  var subjects = Subject.fromJson(jsonDecode(data));
+  ```
+
 More example can be found in `/example` folder.
 
 <!-- todo: tmbah ni nnti -->
 
 <!-- List of available kulliyah:
    "AED", "BRIDG", "CFL", "CCAC", "EDUC", "ENGIN", "ECONS", "KICT", "IRKHS", "KLM", "LAWS"
-  
+
    Refer to: https://albiruni.iium.edu.my/myapps/StudentOnline/schedule1.php -->
 
 <!-- Letak table berkenaan parameters -->
@@ -71,4 +96,4 @@ More example can be found in `/example` folder.
 ## Additional information
 
 - [IIUM Course Schedule Portal](https://albiruni.iium.edu.my/myapps/StudentOnline/schedule1.php)
-- [IIUM Schedule App](https://github.com/iqfareez/flutter_iium_schedule) (WIP)
+- [IIUM Schedule App](https://iiumschedule.vercel.app) (WIP)
