@@ -22,7 +22,10 @@ class Albiruni {
   /// Some kuliiyah may not have semester 3.
   int semester;
 
-  late String semShort;
+  /// Short version of session
+  ///
+  /// Example: "20/21" etc.
+  late String sesShort;
 
   late final String _basicParams;
 
@@ -37,7 +40,7 @@ class Albiruni {
         "&ses=" +
         session +
         "&ctype=%3C";
-    semShort = session.split('/').first.substring(2) +
+    sesShort = session.split('/').first.substring(2) +
         '/' +
         session.split('/').first.substring(2);
   }

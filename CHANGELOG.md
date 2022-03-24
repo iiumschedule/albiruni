@@ -1,3 +1,7 @@
+## 1.1.3
+
+- :pencil2: Rename Albiruni parameter `semShort` to `sesShort`.
+
 ## 1.1.2
 
 - :boom: **BREAKING CHANGES** - `.read` (on **DayTime**) and `.data` (on **Subject**) getter is removed. Added `.toString()` overrides on both.
@@ -26,7 +30,7 @@
   - **`EmptyBodyException`**. Usually happen when subject is not offered for the kuliyyah/session semester. _Eg: You search for `MECH 2344` in Semester 3, but course is only available in long semester. Therefore, error is thrown._
   - **`NoSubjectsException`**. Usually happens when `page` is over it total pages.
 - :sparkles: For `Subject` object:
-  - Added **`.semShort`** value. A short version of semester session. _Eg: `2021/2022` will be `21/22`._
+  - Added **`.semShort`** value. A short version of year session. _Eg: `2021/2022` will be `21/22`._
   - **`.dayTime`** now will be return a sorted session according to its day. _Ie: Monday should come first and so on._
 - :memo: Update docs.
 
