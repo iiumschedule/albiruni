@@ -1,3 +1,7 @@
+## 1.1.4
+
+- :bug: Fix `sesShort` formatting that wrongly return semester value.
+
 ## 1.1.3
 
 - :pencil2: Rename Albiruni parameter `semShort` to `sesShort`.

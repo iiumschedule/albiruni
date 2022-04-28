@@ -42,7 +42,7 @@ class Albiruni {
         "&ctype=%3C";
     sesShort = session.split('/').first.substring(2) +
         '/' +
-        session.split('/').first.substring(2);
+        session.split('/').last.substring(2);
   }
 
   final _baseUrl = 'albiruni.iium.edu.my/myapps/StudentOnline/schedule1.php';
