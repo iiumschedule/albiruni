@@ -1,3 +1,7 @@
+## 1.1.5
+
+- :memo: Update README to provide a clearer documentation.
+
 ## 1.1.4
 
 - :bug: Fix `sesShort` formatting that wrongly return semester value.

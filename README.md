@@ -48,12 +48,6 @@ Thank you [**@PlashSpeed-Aiman**](https://github.com/PlashSpeed-Aiman) for the [
   fetch("CCAC", course: userInput.toAlbiruniFormat()); // formatted: CCUB 2621
   ```
 
-- **Developing for the web** but get that CORS errors or `XMLHttpRequest` error again? Urgh. Fear no more, set `useProxy` to true. This will add a proxy layer between the client and the albiruni server.
-
-  ```dart
-  fetch("ENGIN", course: "MCTE 3271", useProxy: true);
-  ```
-
 - Want to parse the subjects' data from JSON string? We got you!
 
   Say you have this JSON:
@@ -84,6 +78,20 @@ Thank you [**@PlashSpeed-Aiman**](https://github.com/PlashSpeed-Aiman) for the [
   ```
 
 - I think that's it for the basic usage of this library, of course, you can always discover more. You can drop your inquiries in [issues](https://github.com/iqfareez/albiruni/issues) if you have any. More examples can be found in the `/example` folder.
+
+## Common issues
+
+- XMLHttpRequest error or CORS error
+
+  Usually occurs if you're developing for the web. Set `useProxy` flag to **true**. This will add a proxy layer between the client and the albiruni server.
+
+  ```dart
+  fetch("ENGIN", course: "MCTE 3271", useProxy: true);
+  ```
+
+- HandshakeException: [CERTIFICATE_VERIFY_FAILED](https://github.com/iqfareez/iium_schedule/issues/10) error.
+
+  This happens when the albiruni server has some certificate issues. Some clients might reject the requests. If you're in development, try [this answer from SO](https://stackoverflow.com/a/61312927/13617136).
 
 ## List of available kulliyyah (as of 31/7/2022)
 
