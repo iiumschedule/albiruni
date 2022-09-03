@@ -1,3 +1,9 @@
+## 1.1.6
+
+- :truck: Migrate proxy server to another provider. This is due to Heroku is planned to [end its free plan](https://blog.heroku.com/next-chapter) that were use to host the [cors-anywhere](https://github.com/Rob--W/cors-anywhere) proxy instance.
+- :memo: Changed to MIT license
+- :coffee: Added funding
+
 ## 1.1.5
 
 - :memo: Update README to provide a clearer documentation.

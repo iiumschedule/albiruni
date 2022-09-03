@@ -98,9 +98,9 @@ Thank you [**@PlashSpeed-Aiman**](https://github.com/PlashSpeed-Aiman) for the [
 |  Code   | Name                                                    |
 | :-----: | ------------------------------------------------------- |
 | `KAHS`  | ALLIED HEALTH SCIENCES                                  |
-| ` AED`  | ARCHITECTURE                                            |
+|  `AED`  | ARCHITECTURE                                            |
 | `BRIDG` | BRIDGING PROGRAMME                                      |
-| ` CFL`  | CELPAD                                                  |
+|  `CFL`  | CELPAD                                                  |
 | `CCAC`  | COCU                                                    |
 | `DENT`  | DENTISTRY                                               |
 | `EDUC`  | EDUCATION                                               |
@@ -111,12 +111,12 @@ Thank you [**@PlashSpeed-Aiman**](https://github.com/PlashSpeed-Aiman) for the [
 | `IRKHS` | IRKHS                                                   |
 | `IIBF`  | ISLAMIC BANKING AND FINANCE                             |
 | `ISTAC` | ISTAC                                                   |
-| ` KLM`  | KLM                                                     |
+|  `KLM`  | KLM                                                     |
 | `LAWS`  | LAWS                                                    |
 | `MEDIC` | MEDICINE                                                |
 | `NURS`  | NURSING                                                 |
 | `PHARM` | PHARMACY                                                |
-| ` KOS`  | SCIENCE                                                 |
+|  `KOS`  | SCIENCE                                                 |
 | `SC4SH` | SEJAHTERA CENTRE FOR SUSTAINABILTY AND HUMANITY         |
 
 This list of available kulliyyah might change over time, kindly refer to https://iiumschedule.iqfareez.com/docs/devs/albiruni#list-of-available-kulliyyah

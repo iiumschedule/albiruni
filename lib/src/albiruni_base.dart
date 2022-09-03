@@ -46,7 +46,7 @@ class Albiruni {
   }
 
   final _baseUrl = 'albiruni.iium.edu.my/myapps/StudentOnline/schedule1.php';
-  final _proxyUrl = 'cors-anywhere-iium.herokuapp.com/';
+  final _proxyUrl = 'corsproxyuia.up.railway.app/';
 
   /// Fetch a list of subjects based on your specification.
   ///
