@@ -2,12 +2,13 @@ import 'package:albiruni/albiruni.dart';
 
 void main() {
   // initiate albiruni class with session & semester
-  var albiruni = Albiruni(semester: 1, session: "2021/2022");
+  var albiruni = Albiruni(semester: 1, session: "2022/2023");
 
   // comment/uncomment to test it
 
-  subjectsFirstPage(albiruni);
+  // subjectsFirstPage(albiruni);
   // searchSubject(albiruni);
+  subjectSection(albiruni);
   // allSubjects(albiruni);
   // testPreflight();
 }
@@ -23,9 +24,28 @@ void subjectsFirstPage(Albiruni query) async {
 /// Subject can be search by their course code.
 void searchSubject(Albiruni query) async {
   var subjects =
-      await query.fetch("IRKHS", course: "rkud4995".toAlbiruniFormat());
+      await query.fetch("CFL", course: "tqtd2002".toAlbiruniFormat());
   for (var subject in subjects) {
     print(subject);
+  }
+}
+
+/// Get specific section
+void subjectSection(Albiruni query) async {
+  String code = "tqtd2002";
+  int section = 501;
+  // some subject spans more than a page, so we can loop though each page
+  // and try to find the section we want
+  for (int i = 1;; i++) {
+    var subjects =
+        await query.fetch("CFL", course: code.toAlbiruniFormat(), page: i);
+    if (subjects.isEmpty) break;
+    try {
+      var subject = subjects.firstWhere((element) => element.sect == section);
+      print(subject);
+    } catch (e) {
+      print(e);
+    }
   }
 }
 

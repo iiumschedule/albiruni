@@ -1,3 +1,8 @@
+## 1.1.7
+
+- :wrench: Hide internal classes. eg: `TempDayTime`
+- :white_check_mark: Add test files
+
 ## 1.1.6
 
 - :truck: Migrate proxy server to another provider. This is due to Heroku is planned to [end its free plan](https://blog.heroku.com/next-chapter) that were use to host the [cors-anywhere](https://github.com/Rob--W/cors-anywhere) proxy instance.

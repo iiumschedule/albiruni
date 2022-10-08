@@ -48,7 +48,8 @@ class DateTimeUtil {
     }
 
     // Formatting of the website is totally messed up,
-    // For instance, the webite show 12 AM but supposedly it is 12 PM.
+    // For instance, the website show 12 AM but supposedly it is 12 PM.
+    // who goes to class at night???
     if (tempEndTime.contains("12")) isAM = false;
 
     // cancel if bad time format
