@@ -1,3 +1,7 @@
+## 1.2.0
+
+- :sparkles: Added support for fetching **postgraduate** studies. Just set the `studyGrade` parameter in `Albiruni` to `StudyGrade.pg`.
+
 ## 1.1.7
 
 - :wrench: Hide internal classes. eg: `TempDayTime`

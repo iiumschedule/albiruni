@@ -1,8 +1,7 @@
-import 'package:albiruni/src/util/exceptions.dart';
+import 'package:albiruni/albiruni.dart';
 import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
 
-import '../src/model/subject.dart';
 import 'model/day_time.dart';
 import 'util/date_time_util.dart';
 
@@ -27,19 +26,24 @@ class Albiruni {
   /// Example: "20/21" etc.
   late String sesShort;
 
+  /// Study grade [ug] for Undergraduate, [pg] for Postgraduate
+  late StudyGrad studyGrade;
+
   late final String _basicParams;
 
   // Instantiate Albiruni object. All parameters are required.
   Albiruni({
     required this.semester,
     required this.session,
+    this.studyGrade = StudyGrad.ug,
   }) : super() {
     _basicParams = "?action=view"
             "&sem=" +
         semester.toString() +
         "&ses=" +
         session +
-        "&ctype=%3C";
+        "&ctype=" +
+        (studyGrade == StudyGrad.ug ? "<" : ">=");
     sesShort = session.split('/').first.substring(2) +
         '/' +
         session.split('/').last.substring(2);

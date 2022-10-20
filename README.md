@@ -11,7 +11,8 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
-![pub badge](https://img.shields.io/pub/v/albiruni.svg)
+[![Dart](https://img.shields.io/badge/dart-%230175C2.svg?logo=dart&logoColor=white)](https://dart.dev/)
+[![pub badge](https://img.shields.io/pub/v/albiruni.svg)](https://pub.dev/packages/albiruni)
 [![style: lints](https://img.shields.io/badge/style-lints-4BC0F5.svg)](https://pub.dev/packages/lints)
 
 A wrapper to easily access [IIUM's Course Schedule](https://albiruni.iium.edu.my/myapps/StudentOnline/schedule1.php) website data.
@@ -27,6 +28,13 @@ Thank you [**@PlashSpeed-Aiman**](https://github.com/PlashSpeed-Aiman) for the [
   Albiruni albiruni = Albiruni(semester: 1, session: "2021/2022");
   // Use methods available in the classes
   var subjects = await albiruni.fetch("ECONS");
+  ```
+
+- Supports both Undergraduate and Postgraduate studies. Pass the enum `StudyGrad` to `studyGrade` parameter in `Albiruni`. (default: `StudyGrade.ug` (undergraduate))
+
+  ```dart
+  var albiruni =
+      Albiruni(semester: 1, session: "2022/2023", studyGrade: StudyGrad.pg);
   ```
 
 - To **search** for a particular subject, use the `course` parameter.
