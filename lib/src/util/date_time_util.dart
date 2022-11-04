@@ -43,7 +43,7 @@ class DateTimeUtil {
     } else {
       // In some cases, time is missing a trailing zero. Example: 4.3 PM
       if (tempEndTime.split('.').last.length <= 1) {
-        tempEndTime = tempEndTime + '0';
+        tempEndTime = '${tempEndTime}0';
       }
     }
 

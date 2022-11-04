@@ -4,8 +4,9 @@ import 'package:albiruni/albiruni.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test('Parse day time from json', () async {
-    var myJson = '''
+  test('Parse day time from json', () {
+    var myJson =
+        '''
                 {
                   "day": 0,
                   "startTime" : "09:20",

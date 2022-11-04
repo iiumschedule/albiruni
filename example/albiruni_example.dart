@@ -3,7 +3,7 @@ import 'package:albiruni/albiruni.dart';
 void main() {
   // initiate albiruni class with session & semester
   var albiruni =
-      Albiruni(semester: 1, session: "2022/2023", studyGrade: StudyGrad.pg);
+      Albiruni(semester: 1, session: "2022/2023", studyGrade: StudyGrad.ug);
 
   // comment/uncomment to test it
 
