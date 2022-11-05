@@ -29,7 +29,7 @@ class DateTimeUtil {
     }
   }
 
-  /// Parse weirdly formatted time in String in [DayTime] object
+  /// Parse weirdly formatted time in String to [DayTime] object
   static DayTime? parseDayTime(String text) {
     bool isAM = text.contains("AM");
 
@@ -67,7 +67,8 @@ class DateTimeUtil {
     }
 
     return DayTime(
-        day: 0, // this value will be overriden anyway
+        // [day] is just placeholder value, actual value is set in [parseAlbiruniHtml] method
+        day: 0,
         startTime: DateFormat("HH:mm").format(startTime),
         endTime: DateFormat("HH:mm").format(endTime));
   }

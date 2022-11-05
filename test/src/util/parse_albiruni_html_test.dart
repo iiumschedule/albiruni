@@ -5,7 +5,8 @@ import 'package:test/test.dart';
 
 void main() {
   test('Test parser (HTML to Albiruni object)', () async {
-    String rawResponse = '''
+    String rawResponse =
+        '''
 <html>
 <head>
 <title>Course Schedule</title>
@@ -225,7 +226,8 @@ else {
 
   test('Parse Subject from HTML element (Multiple lecturers, no venue)', () {
     // from ENGINE 2022/2023 Semester 1
-    var rawElement = Element.html('''
+    var rawElement = Element.html(
+        '''
  <tr bgcolor=f5f5f5 valign="top">
                 <td width="9%" align="left"  >BTEN 3183</td>
                 <td width="3%" align="left" >2</td>
@@ -251,8 +253,7 @@ else {
 ''');
 
     var subject = parseSubject(rawElement);
-    // print(subject);
-    // print(subject.dayTime.first);
+
     expect(subject.code, 'BTEN 3183');
     expect(subject.title, 'BIOTECHNOLOGY ENGINEERING LAB III');
     expect(subject.chr, 1.0);
@@ -263,14 +264,15 @@ else {
           'DR. FAZIA ADYANI BINTI AHMAD FUAD',
           'DR. MOHD. FIRDAUS BIN ABD. WAHAB'
         ]));
-    expect(subject.venue, null);
+    expect(subject.venue, isNull);
     expect(subject.dayTime,
         containsAll([DayTime(day: 3, startTime: '14:00', endTime: '16:50')]));
   });
 
   test('Parse Subject from HTML element (Multiple days)', () {
     // from KICT 2022/2023 Semester 1
-    var rawElement = Element.html('''
+    var rawElement = Element.html(
+        '''
 </tr>
               <tr bgcolor=ddddf5 valign="top">
                 <td width="9%" align="left"  >CSCI 4347</td>
@@ -291,8 +293,7 @@ else {
 ''');
 
     var subject = parseSubject(rawElement);
-    // print(subject);
-    // print(subject.dayTime.first);
+
     expect(subject.code, 'CSCI 4347');
     expect(subject.title, 'BRAIN COMPUTATIONAL ANALYTICS');
     expect(subject.chr, 3.0);
@@ -309,7 +310,8 @@ else {
 
   test('Parse Subject from HTML element (Multiple days with tuto time)', () {
     // from KICT 2022/2023 Semester 1
-    var rawElement = Element.html('''
+    var rawElement = Element.html(
+        '''
 <tr bgcolor=ddddf5 valign="top">
                 <td width="9%" align="left"  >INFO 1303</td>
                 <td width="3%" align="left" >2</td>
@@ -335,8 +337,7 @@ else {
 ''');
 
     var subject = parseSubject(rawElement);
-    // print(subject);
-    // print(subject.dayTime.first);
+
     expect(subject.code, 'INFO 1303');
     expect(subject.title, 'DATABASE SYSTEMS');
     expect(subject.chr, 3.0);
@@ -351,5 +352,38 @@ else {
           DayTime(day: 1, startTime: '17:00', endTime: '18:50'),
           DayTime(day: 3, startTime: '10:00', endTime: '11:20'),
         ]));
+  });
+
+  test('Parse Subject from HTML element (No time, no venue)', () {
+    // from ENMS 2022/2023 Semester 1
+    var rawElement = Element.html(
+        '''
+<tr bgcolor="ddddf5" valign="top">
+                <td width="9%" align="left">ISF 4214</td>
+                <td width="3%" align="left">1</td>
+                <td width="25%" align="left">PRACTICAL TRAINING</td>
+                <td width="3%" align="left">6</td>
+                <td width="60%" align="left" valign="top">
+                 <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                  <tbody><tr valign="top">
+                   <td width="10%" align="left"></td>
+                   <td width="20%" align="left"> </td>
+                   <td width="25%" align="left">-</td>
+                   <td width="45%" align="left">TO BE DETERMINED</td>
+                  </tr>
+                </tbody></table>
+                </td>
+              </tr>
+''');
+
+    var subject = parseSubject(rawElement);
+
+    expect(subject.code, 'ISF 4214');
+    expect(subject.title, 'PRACTICAL TRAINING');
+    expect(subject.chr, 6.0);
+    expect(subject.sect, 1);
+    expect(subject.lect, containsAll(['TO BE DETERMINED']));
+    expect(subject.venue, isNull);
+    expect(subject.dayTime, isEmpty);
   });
 }

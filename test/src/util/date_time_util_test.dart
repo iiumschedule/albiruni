@@ -55,4 +55,52 @@ void main() {
     resDay = DateTimeUtil.dayMap(albiruniDay);
     expect(resDay, isNot(DateTime.monday));
   });
+
+  group('Time parsing', () {
+    test('Normal | AM', () {
+      String rawTime = '8.30 - 9.50 AM';
+      var resTime = DateTimeUtil.parseDayTime(rawTime);
+      expect(resTime!.startTime, isNot('8:30'));
+      expect(resTime.startTime, '08:30'); // must have leading zero
+      expect(resTime.endTime, '09:50');
+    });
+    test('Normal | PM', () {
+      String rawTime = '3.30 - 5.20 PM';
+      var resTime = DateTimeUtil.parseDayTime(rawTime);
+      expect(resTime!.startTime, isNot('3:30'));
+      expect(resTime.startTime, '15:30'); // must 24 hour formatted
+      expect(resTime.endTime, '17:20');
+    });
+
+    test('Start time single digit | PM', () {
+      String rawTime = '2 - 4.50 PM';
+      var resTime = DateTimeUtil.parseDayTime(rawTime);
+      expect(resTime!.startTime, '14:00');
+      expect(resTime.endTime, '16:50');
+    });
+
+    test('Single digit | PM', () {
+      String rawTime = '8 - 10 PM';
+      var resTime = DateTimeUtil.parseDayTime(rawTime);
+      expect(resTime!.startTime, '20:00');
+      expect(resTime.endTime, '22:00');
+    });
+
+    group('Startime in AM but endtime in PM', () {
+      test('Exhibit A', () {
+        String rawTime = '11.30 - 12.50 AM';
+        var resTime = DateTimeUtil.parseDayTime(rawTime);
+        expect(resTime!.startTime, '11:30');
+        expect(resTime.endTime, '12:50');
+      });
+      test('Exhibit B (Issue #5)', () {
+        String rawTime = '11.30 - 1.20 AM';
+        var resTime = DateTimeUtil.parseDayTime(rawTime);
+        expect(resTime!.startTime, '11:30');
+        expect(resTime.endTime, '13:20');
+      },
+          skip:
+              'Not implemented yet. It is a albiruni\'s fault. See https://github.com/iqfareez/albiruni/issues/5#issuecomment-1283678013');
+    });
+  });
 }
