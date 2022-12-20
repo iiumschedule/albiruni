@@ -1,10 +1,10 @@
-import 'package:albiruni/src/model/day_time.dart';
+import 'package:albiruni/albiruni.dart';
 import 'package:intl/intl.dart';
 
 /// Utility classes to parse raw data to proper data
 class DateTimeUtil {
   /// Map day in String to integers
-  static int dayMap(String day) {
+  static int _dayMap(String day) {
     switch (day) {
       case 'MON':
       case 'M':
@@ -25,12 +25,42 @@ class DateTimeUtil {
       case 'SUN':
         return DateTime.sunday;
       default:
-        return 99; // invalid day index
+        throw DayTimeParseException(message: "Unable to parse day: $day");
     }
   }
 
+  /// Parse the given raw day format and return a Day number
+  ///
+  /// Eg: Given 'MON', return [DateTime.monday]
+  static List<int> parseDays(String rawDay) {
+    rawDay = rawDay.trim(); // remove all whitespaces (just in case)
+
+    // check for special cases (https://github.com/iqfareez/albiruni/issues/1)
+    if (rawDay == 'MTWTH') {
+      return [
+        DateTime.monday,
+        DateTime.tuesday,
+        DateTime.wednesday,
+        DateTime.thursday
+      ];
+    }
+    if (rawDay == 'MTWTHF') {
+      return [
+        DateTime.monday,
+        DateTime.tuesday,
+        DateTime.wednesday,
+        DateTime.thursday,
+        DateTime.friday
+      ];
+    }
+
+    // check for other days
+    var days = rawDay.split('-'); // split 'M-W' to ['M', 'W']
+    return days.map((e) => _dayMap(e)).toList();
+  }
+
   /// Parse weirdly formatted time in String to [DayTime] object
-  static DayTime? parseDayTime(String text) {
+  static DayTime? parseTime(String text) {
     bool isAM = text.contains("AM");
 
     var split = text.split(' - ');

@@ -1,72 +1,79 @@
 import 'package:albiruni/src/util/date_time_util.dart';
+import 'package:albiruni/src/util/exceptions.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test('Parse dayMap from albiruni day', () {
-    // Monday
-    var albiruniDay = 'MON';
-    var resDay = DateTimeUtil.dayMap(albiruniDay);
-    expect(resDay, DateTime.monday);
+  group('Day parsing', () {
+    test('Parse days from raw', () {
+      /**
+       * Single day
+       */
 
-    // Tuesday
-    albiruniDay = 'T';
-    resDay = DateTimeUtil.dayMap(albiruniDay);
-    expect(resDay, DateTime.tuesday);
+      var rawDay = 'MON';
+      var resDay = DateTimeUtil.parseDays(rawDay);
+      expect(resDay, [DateTime.monday]);
 
-    albiruniDay = 'TUE';
-    resDay = DateTimeUtil.dayMap(albiruniDay);
-    expect(resDay, DateTime.tuesday);
+      rawDay = 'FRI';
+      resDay = DateTimeUtil.parseDays(rawDay);
+      expect(resDay, [DateTime.friday]);
 
-    // Wednesday
-    albiruniDay = 'W';
-    resDay = DateTimeUtil.dayMap(albiruniDay);
-    expect(resDay, DateTime.wednesday);
+      /**
+       * Compond days
+       */
 
-    albiruniDay = 'WED';
-    resDay = DateTimeUtil.dayMap(albiruniDay);
-    expect(resDay, DateTime.wednesday);
+      rawDay = 'M-W'; // Monday & Wednesday
+      resDay = DateTimeUtil.parseDays(rawDay);
+      expect(resDay, [DateTime.monday, DateTime.wednesday]);
 
-    // Thursday
-    albiruniDay = 'TH';
-    resDay = DateTimeUtil.dayMap(albiruniDay);
-    expect(resDay, DateTime.thursday);
+      rawDay = 'T-TH'; // Tuesday & Thursday
+      resDay = DateTimeUtil.parseDays(rawDay);
+      expect(resDay, [
+        DateTime.tuesday,
+        DateTime.thursday,
+      ]);
 
-    albiruniDay = 'THUR';
-    resDay = DateTimeUtil.dayMap(albiruniDay);
-    expect(resDay, DateTime.thursday);
+      /**
+       * Special cases
+       */
+      rawDay = 'MTWTH';
+      resDay = DateTimeUtil.parseDays(rawDay);
+      expect(resDay, [
+        DateTime.monday,
+        DateTime.tuesday,
+        DateTime.wednesday,
+        DateTime.thursday
+      ]);
 
-    // Friday
-    albiruniDay = 'FRI';
-    resDay = DateTimeUtil.dayMap(albiruniDay);
-    expect(resDay, DateTime.friday);
+      rawDay = 'MTWTHF';
+      resDay = DateTimeUtil.parseDays(rawDay);
+      expect(resDay, [
+        DateTime.monday,
+        DateTime.tuesday,
+        DateTime.wednesday,
+        DateTime.thursday,
+        DateTime.friday
+      ]);
 
-    // Saturday
-    albiruniDay = 'SAT';
-    resDay = DateTimeUtil.dayMap(albiruniDay);
-    expect(resDay, DateTime.saturday);
-
-    // Sunday
-    albiruniDay = 'SUN';
-    resDay = DateTimeUtil.dayMap(albiruniDay);
-    expect(resDay, DateTime.sunday);
-
-    // invalid
-    albiruniDay = 'MEOW';
-    resDay = DateTimeUtil.dayMap(albiruniDay);
-    expect(resDay, isNot(DateTime.monday));
+      /**
+       * Invalid
+       */
+      rawDay = 'MEOW';
+      expect(() => DateTimeUtil.parseDays(rawDay),
+          throwsA(isA<DayTimeParseException>()));
+    });
   });
 
   group('Time parsing', () {
     test('Normal | AM', () {
       String rawTime = '8.30 - 9.50 AM';
-      var resTime = DateTimeUtil.parseDayTime(rawTime);
+      var resTime = DateTimeUtil.parseTime(rawTime);
       expect(resTime!.startTime, isNot('8:30'));
       expect(resTime.startTime, '08:30'); // must have leading zero
       expect(resTime.endTime, '09:50');
     });
     test('Normal | PM', () {
       String rawTime = '3.30 - 5.20 PM';
-      var resTime = DateTimeUtil.parseDayTime(rawTime);
+      var resTime = DateTimeUtil.parseTime(rawTime);
       expect(resTime!.startTime, isNot('3:30'));
       expect(resTime.startTime, '15:30'); // must 24 hour formatted
       expect(resTime.endTime, '17:20');
@@ -74,14 +81,14 @@ void main() {
 
     test('Start time single digit | PM', () {
       String rawTime = '2 - 4.50 PM';
-      var resTime = DateTimeUtil.parseDayTime(rawTime);
+      var resTime = DateTimeUtil.parseTime(rawTime);
       expect(resTime!.startTime, '14:00');
       expect(resTime.endTime, '16:50');
     });
 
     test('Single digit | PM', () {
       String rawTime = '8 - 10 PM';
-      var resTime = DateTimeUtil.parseDayTime(rawTime);
+      var resTime = DateTimeUtil.parseTime(rawTime);
       expect(resTime!.startTime, '20:00');
       expect(resTime.endTime, '22:00');
     });
@@ -89,13 +96,13 @@ void main() {
     group('Startime in AM but endtime in PM', () {
       test('Exhibit A', () {
         String rawTime = '11.30 - 12.50 AM';
-        var resTime = DateTimeUtil.parseDayTime(rawTime);
+        var resTime = DateTimeUtil.parseTime(rawTime);
         expect(resTime!.startTime, '11:30');
         expect(resTime.endTime, '12:50');
       });
       test('Exhibit B (Issue #5)', () {
         String rawTime = '11.30 - 1.20 AM';
-        var resTime = DateTimeUtil.parseDayTime(rawTime);
+        var resTime = DateTimeUtil.parseTime(rawTime);
         expect(resTime!.startTime, '11:30');
         expect(resTime.endTime, '13:20');
       },

@@ -10,3 +10,11 @@ class EmptyBodyException implements Exception {
   String? message;
   EmptyBodyException({this.message});
 }
+
+/// Unable to pasre the day and time given by the server
+///
+/// Refer issue: https://github.com/iqfareez/albiruni/issues/1
+class DayTimeParseException implements Exception {
+  String? message;
+  DayTimeParseException({this.message});
+}

@@ -1,3 +1,8 @@
+## 1.2.1
+
+- :bug: Fixed the parser to parse days like `MTWTHF` and `MTWTH`. Refer [#1](https://github.com/iqfareez/albiruni/issues/1).
+- :white_check_mark: Add more tests
+
 ## 1.2.0
 
 - :sparkles: Added support for fetching **postgraduate** studies. Just set the `studyGrade` parameter in `Albiruni` to `StudyGrade.pg`.

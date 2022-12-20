@@ -21,71 +21,82 @@ Thank you [**@PlashSpeed-Aiman**](https://github.com/PlashSpeed-Aiman) for the [
 
 ## Features
 
-- **Get a list** of subjects for ECONS kulliyyah for semester 1, 2021/2022 session:
+### Get a list of subjects offered
 
-  ```dart
-  // Create albiruni instance
-  Albiruni albiruni = Albiruni(semester: 1, session: "2021/2022");
-  // Use methods available in the classes
-  var subjects = await albiruni.fetch("ECONS");
-  ```
+Fetch of subjects for Kuliyyah of Economics for semester 1, 2021/2022 session:
 
-- Supports both Undergraduate and Postgraduate studies. Pass the enum `StudyGrad` to `studyGrade` parameter in `Albiruni`. (default: `StudyGrade.ug` (undergraduate))
+```dart
+// Create albiruni instance
+Albiruni albiruni = Albiruni(semester: 1, session: "2021/2022");
+// Use methods available in the classes
+subjects = await albiruni.fetch("ECONS");
+```
 
-  ```dart
-  var albiruni =
-      Albiruni(semester: 1, session: "2022/2023", studyGrade: StudyGrad.pg);
-  ```
+Supports both Undergraduate and Postgraduate studies. Pass the `StudyGrade.ug` (default) or `StudyGrade.pg`.
 
-- To **search** for a particular subject, use the `course` parameter.
+```dart
+Albiruni(semester: 1, session: "2022/2023", studyGrade: StudyGrad.pg);
+```
 
-  ```dart
-  fetch("ECONS", course: "ECON 1140");
-  ```
+### Search for specific subjects in a kulliyyah
 
-- Be creative. Let's say you want to **filter** the courses for **third**-year subjects only, just provide the first digit and ignore the rest.
+Put the subject course code in the `course` parameter. The subject must be Albiruni-formatted, e.g. `ABDC 1234` (see [albiruni-formatted](#albiruni-formatted)).
 
-  ```dart
-  fetch("ECONS", course: "CCUB 3");
-  ```
+```dart
+fetch("ECONS", course: "ECON 1140");
+```
 
-- If you receive the course code input from the user, use `.toAlbiruniFormat()` method to **properly format the string** before passing it to the function.
+Here's some trick. Let's say you want to **filter** the courses for **third**-year subjects only, just provide the first digit and ignore the rest.
 
-  ```dart
-  var userInput = "ccub2621";
-  fetch("CCAC", course: userInput.toAlbiruniFormat()); // formatted: CCUB 2621
-  ```
+```dart
+fetch("CCAC", course: "CCUB 3");
+```
 
-- Want to parse the subjects' data from JSON string? We got you!
+### Albiruni-formatted
 
-  Say you have this JSON:
+The course code **must** be in the following format: `ABCD 1234`. The first four characters are the subject code, and the last four characters are the subject number. The space is required. _In some cases, the course code format might be different but generally, it will look like this._
 
-  ```json
-  {
-    "code": "CHEN 1212",
-    "sect": 1,
-    "title": "THERMODYNAMICS",
-    "chr": 2.0,
-    "venue": null,
-    "lect": [
-      "DR. MOHD. FIRDAUS BIN ABD. WAHAB",
-      "ASSOC. PROF. DR. NOR FADHILLAH BT. MOHAMED AZMIN"
-    ],
-    "dayTime": [
-      { "day": 1, "startTime": "11:30", "endTime": "12:50" },
-      { "day": 3, "startTime": "11:30", "endTime": "12:50" }
-    ]
-  }
-  ```
+Lucky for you, `.toAlbiruniFormat()` extension method will properly format the string for you. Useful when you're receiving input from the users etc.
 
-  Parse it like follow:
+```dart
+var userInput = "ccub2621";
+fetch("CCAC", course: userInput.toAlbiruniFormat()); // formatted: CCUB 2621
+```
 
-  ```dart
-  var data = <yourjsonstring>
-  var subjects = Subject.fromJson(jsonDecode(data));
-  ```
+### JSON
 
-- I think that's it for the basic usage of this library, of course, you can always discover more. You can drop your inquiries in [issues](https://github.com/iqfareez/albiruni/issues) if you have any. More examples can be found in the `/example` folder.
+Parse subject data from JSON to Dart object, use `fromJson()` constructor.
+
+Example JSON:
+
+```json
+{
+  "code": "CHEN 1212",
+  "sect": 1,
+  "title": "THERMODYNAMICS",
+  "chr": 2.0,
+  "venue": null,
+  "lect": [
+    "DR. MOHD. FIRDAUS BIN ABD. WAHAB",
+    "ASSOC. PROF. DR. NOR FADHILLAH BT. MOHAMED AZMIN"
+  ],
+  "dayTime": [
+    { "day": 1, "startTime": "11:30", "endTime": "12:50" },
+    { "day": 3, "startTime": "11:30", "endTime": "12:50" }
+  ]
+}
+```
+
+Parse it like follow:
+
+```dart
+var data = <yourjsonstring>
+var subjects = Subject.fromJson(jsonDecode(data));
+```
+
+Similarly, you can convert Dart object to JSON using `toJson()` method.
+
+I think that's it for the basic usage of this library, of course, you can always discover more. You can drop your inquiries in [issues](https://github.com/iqfareez/albiruni/issues) if you have any. More examples can be found in the `/example` folder.
 
 ## Common issues
 

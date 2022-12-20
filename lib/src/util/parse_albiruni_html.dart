@@ -73,11 +73,13 @@ Subject parseSubject(Element element) {
 
     // for every day, save it with their time
     for (var i = 0; i < tempDayTime.length; i++) {
-      var days = tempDayTime[i].day.split('-');
-      var parsedDayTime = DateTimeUtil.parseDayTime(tempDayTime[i].time);
+      var days = DateTimeUtil.parseDays(tempDayTime[i].day);
+      var parsedDayTime = DateTimeUtil.parseTime(tempDayTime[i].time);
+
       if (parsedDayTime == null) continue; // ignore if no value to pase
+
       var dts = days.map((day) => DayTime(
-          day: DateTimeUtil.dayMap(day),
+          day: day,
           startTime: parsedDayTime.startTime,
           endTime: parsedDayTime.endTime));
       dayTime.addAll(dts);
