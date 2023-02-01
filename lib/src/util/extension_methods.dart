@@ -1,10 +1,12 @@
+/// Extension methods for String class.
 extension AlbiruniFormat on String {
   /// Transfrom given string to albiruni parseable format.
-  /// Processing logic is the same with the original site.
+  ///
   /// Example: `ppbm1331` will return `PPBM 1331`
   String toAlbiruniFormat() {
     var x = toUpperCase().replaceAll(" ", "");
 
+    // Processing logic is the same with the original site that were written in JS
     var spacepos = x.indexOf(RegExp(r'[0-9]'));
 
     /// `CCDN1352E` will be as it is,

@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 ///
 /// Base code are ported from https://github.com/PlashSpeed-Aiman/IIUMCourseScheduleApp
 class Albiruni {
-  // a.k.a year.
+  /// a.k.a year.
   ///
   /// Example: "2020/2021", "2021/2022", etc.
   ///
@@ -29,7 +29,7 @@ class Albiruni {
 
   late final String _basicParams;
 
-  // Instantiate Albiruni object. All parameters are required.
+  // Instantiate Albiruni object
   Albiruni({
     required this.semester,
     required this.session,

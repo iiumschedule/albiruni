@@ -1,3 +1,8 @@
+## 1.2.2
+
+- :arrow_up: Bump [intl](https://pub.dev/packages/intl) to `^0.18.0`
+- :memo: Add some dartdoc
+
 ## 1.2.1
 
 - :bug: Fixed the parser to parse days like `MTWTHF` and `MTWTH`. Refer [#1](https://github.com/iqfareez/albiruni/issues/1).
