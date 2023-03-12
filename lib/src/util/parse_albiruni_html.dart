@@ -15,11 +15,16 @@ List<Subject> parseAlbiruniHtml(String htmlBody) {
   // catching error that usually occur when searching
   // subject that is not available to the current scope.
   try {
-    elements = elements[1].children;
+    elements = elements[1].children; // table content
   } on RangeError {
     throw EmptyBodyException(
         message: "Body is empty. Subject not found/offered");
   }
+
+  // TODO: Make this return using Dart Records
+  // https://github.com/iqfareez/albiruni/issues/6
+  // TODO: Add tests for this
+  int totalPages = parseTotalPages(elements[0]);
 
   // Iteratoing each row to parse the contents
   for (var i = 2; i < elements.length - 1; i++) {
@@ -97,4 +102,23 @@ Subject parseSubject(Element element) {
     // remove duplicated DayTime
     // and sort the day (ie, Monday should come first and so on)
   );
+}
+
+/// Parse total pages from a scope
+///
+/// JS equivalent:
+/// var tdElement = document.getElementsByTagName("tbody")[1].children[0].querySelector("td[colspan]");
+/// var aElements = tdElement.querySelectorAll("a");
+/// Array.prototype.filter.call(tdElement.children, function(child) {
+///   return child.nodeName === "A";
+/// }).length;
+int parseTotalPages(Element element) {
+  var res = element
+      .querySelector("td")!
+      .children
+      .where((element) => element.localName == "a")
+      .length;
+
+  // When no <a> element exist, which means this scope has no other pages, only one page
+  return res == 0 ? 1 : res;
 }
