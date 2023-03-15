@@ -1,3 +1,7 @@
+## 1.2.3
+
+- :bug: Fixed issue where albiruni cannot parse some day format. Refer [#1](https://github.com/iqfareez/albiruni/issues/1)
+
 ## 1.2.2
 
 - :arrow_up: Bump [intl](https://pub.dev/packages/intl) to `^0.18.0`
