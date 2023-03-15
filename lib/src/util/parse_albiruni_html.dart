@@ -65,10 +65,15 @@ Subject parseSubject(Element element) {
       .where((element) => element.isNotEmpty) // remove empty rows
       .toList();
 
+  // https://github.com/iqfareez/albiruni/issues/1#issuecomment-1470978605
+  // remove empty entity in a list
+  // For eg: [3.30 - 4.30 PM,  ]
+  day.removeWhere((element) => element.trim().isEmpty);
+  time.removeWhere((element) => element.trim().isEmpty);
+
   List<DayTime?> dayTime = [];
-  // Check if day or time value is empty
   // Only process day & time if they're exist
-  if (!(time.first.trim().isEmpty || day.first.trim().isEmpty)) {
+  if (day.isNotEmpty) {
     List<TempDayTime> tempDayTime = [];
 
     // Combine the day & time into DayTime object

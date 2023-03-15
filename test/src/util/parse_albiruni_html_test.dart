@@ -354,6 +354,41 @@ else {
         ]));
   });
 
+  test('Parse subject from HTML (Multiple lect, only one day time)', () {
+    var rawElement = Element.html(
+        '''
+<tr bgcolor="f5f5f5" valign="top">
+                <td width="9%" align="left">CCUB 3164</td>
+                <td width="3%" align="left">29</td>
+                <td width="25%" align="left">USRAH IN ACTION 2</td>
+                <td width="3%" align="left">1</td>
+                <td width="60%" align="left" valign="top">
+                 <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                  <tbody><tr valign="top">
+                   <td width="10%" align="left">WED</td>
+                   <td width="20%" align="left">3.30 - 4.30 PM</td>
+                   <td width="25%" align="left">-</td>
+                   <td width="45%" align="left">DR. SURIATI BINTI SIDEK</td>
+                  </tr>
+                  <tr valign="top">
+                   <td width="10%" align="left"></td>
+                   <td width="20%" align="left"> </td>
+                   <td width="25%" align="left">-</td>
+                   <td width="45%" align="left">DR. INTAN SURYANI BT. ABU BAKAR</td>
+                  </tr>
+                </tbody></table>
+                </td>
+              </tr>
+              ''');
+
+    var subject = parseSubject(rawElement);
+
+    expect(subject.code, 'CCUB 3164');
+    expect(subject.dayTime, hasLength(1));
+    expect(subject.dayTime,
+        containsOnce(DayTime(day: 3, startTime: '15:30', endTime: '16:30')));
+  });
+
   test('Parse Subject from HTML element (No time, no venue)', () {
     // from ENMS 2022/2023 Semester 1
     var rawElement = Element.html(

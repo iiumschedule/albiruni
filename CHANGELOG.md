@@ -1,6 +1,10 @@
+## 1.2.4
+
+- :bug: Fixed another bug related to parsing subject day & time. Refer [#1 (Comment)](https://github.com/iqfareez/albiruni/issues/1#issuecomment-1470978605)
+
 ## 1.2.3
 
-- :bug: Fixed issue where albiruni cannot parse some day format. Refer [#1](https://github.com/iqfareez/albiruni/issues/1)
+- :bug: Fixed issue where albiruni cannot parse some day format. Refer [#1 (Comment)](https://github.com/iqfareez/albiruni/issues/1#issuecomment-1469333334)
 
 ## 1.2.2
 

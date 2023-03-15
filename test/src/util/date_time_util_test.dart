@@ -39,6 +39,17 @@ void main() {
         DateTime.saturday,
       ]);
 
+      rawDay = 'M-W-F'; // 3 days separated by dash
+      resDay = DateTimeUtil.parseDays(rawDay);
+      expect(
+        resDay,
+        orderedEquals([
+          DateTime.monday,
+          DateTime.wednesday,
+          DateTime.friday,
+        ]),
+      );
+
       /**
        * Special cases
        */
