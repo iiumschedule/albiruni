@@ -18,7 +18,7 @@ void main() {
       expect(resDay, [DateTime.friday]);
 
       /**
-       * Compond days
+       * Compound days
        */
 
       rawDay = 'M-W'; // Monday & Wednesday
@@ -30,6 +30,13 @@ void main() {
       expect(resDay, [
         DateTime.tuesday,
         DateTime.thursday,
+      ]);
+
+      rawDay = 'F-SAT'; // Tuesday & Thursday
+      resDay = DateTimeUtil.parseDays(rawDay);
+      expect(resDay, [
+        DateTime.friday,
+        DateTime.saturday,
       ]);
 
       /**
@@ -52,6 +59,14 @@ void main() {
         DateTime.wednesday,
         DateTime.thursday,
         DateTime.friday
+      ]);
+
+      rawDay = 'MTW';
+      resDay = DateTimeUtil.parseDays(rawDay);
+      expect(resDay, [
+        DateTime.monday,
+        DateTime.tuesday,
+        DateTime.wednesday,
       ]);
 
       /**

@@ -18,6 +18,7 @@ class DateTimeUtil {
       case 'TH':
       case 'THUR':
         return DateTime.thursday;
+      case 'F':
       case 'FRI':
         return DateTime.friday;
       case 'SAT':
@@ -36,6 +37,13 @@ class DateTimeUtil {
     rawDay = rawDay.trim(); // remove all whitespaces (just in case)
 
     // check for special cases (https://github.com/iqfareez/albiruni/issues/1)
+    if (rawDay == 'MTW') {
+      return [
+        DateTime.monday,
+        DateTime.tuesday,
+        DateTime.wednesday,
+      ];
+    }
     if (rawDay == 'MTWTH') {
       return [
         DateTime.monday,

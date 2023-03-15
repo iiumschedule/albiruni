@@ -16,7 +16,7 @@ void main() {
 
 /// Print all the subjects on first page
 void subjectsFirstPage(Albiruni query) async {
-  var subjects = await query.fetch("ENGIN");
+  var subjects = await query.fetch("KAHS");
   for (var subject in subjects) {
     print(subject);
   }
