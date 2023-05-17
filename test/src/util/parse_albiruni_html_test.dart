@@ -220,8 +220,9 @@ else {
 </body>
 </html>
 ''';
-    var res = parseAlbiruniHtml(rawResponse);
-    expect(res.length, 5);
+    var (subjects, totalPage) = parseAlbiruniHtml(rawResponse);
+    expect(totalPage, 12);
+    expect(subjects.length, 5);
   });
 
   test('Parse Subject from HTML element (Multiple lecturers, no venue)', () {

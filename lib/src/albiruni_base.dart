@@ -51,7 +51,9 @@ class Albiruni {
   /// One page holds about 50 entries. Navigate to the next page using the [page] parameter. Default is `1`.
   ///
   /// if [useProxy] is set to true, request to albiruni will go through a proxy server. Useful when using dealing with CORS issue.
-  Future<List<Subject>> fetch(String kulliyah,
+  ///
+  /// Returns a Records of list of [Subject] and total pages.
+  Future<(List<Subject>, int)> fetch(String kulliyah,
       {String? course, int page = 1, bool useProxy = false}) async {
     if (course != null) {
       course.replaceFirst(' ', '+').toUpperCase();
@@ -70,7 +72,7 @@ class Albiruni {
 
   /// Check if subject on the current scope (kulliyah, semester & session) is available.
   ///
-  /// `true` will return if there is atleast one subject in the current scope.
+  /// Return `true` if there is atleast one subject in the current scope.
   Future<bool> preflight(String kulliyah) async {
     var firstPage = "&view=50";
     var kull = "&kuly=$kulliyah";

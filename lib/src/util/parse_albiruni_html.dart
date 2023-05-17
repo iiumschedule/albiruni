@@ -7,7 +7,7 @@ import 'package:html/parser.dart';
 import '../model/subject.dart';
 
 /// Parse raw Albiruni body (HTML) to list of [Subject]
-List<Subject> parseAlbiruniHtml(String htmlBody) {
+(List<Subject>, int) parseAlbiruniHtml(String htmlBody) {
   List<Subject> subjects = [];
   var document = parse(htmlBody);
   var elements = document.getElementsByTagName("tbody");
@@ -21,9 +21,6 @@ List<Subject> parseAlbiruniHtml(String htmlBody) {
         message: "Body is empty. Subject not found/offered");
   }
 
-  // TODO: Make this return using Dart Records
-  // https://github.com/iqfareez/albiruni/issues/6
-  // TODO: Add tests for this
   int totalPages = parseTotalPages(elements[0]);
 
   // Iteratoing each row to parse the contents
@@ -36,7 +33,7 @@ List<Subject> parseAlbiruniHtml(String htmlBody) {
         message:
             "No subjects found on this page. Reason included but not limited to 1) You may have passed the end of the pages 2) Course is not offered 3) Searching cours in wrong Kuliyyah/semester");
   }
-  return subjects;
+  return (subjects, totalPages);
 }
 
 /// Parse single subject from HTML element

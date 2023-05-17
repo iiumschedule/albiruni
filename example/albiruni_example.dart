@@ -3,7 +3,7 @@ import 'package:albiruni/albiruni.dart';
 void main() {
   // initiate albiruni class with session & semester
   var albiruni =
-      Albiruni(semester: 1, session: "2022/2023", studyGrade: StudyGrad.ug);
+      Albiruni(semester: 2, session: "2022/2023", studyGrade: StudyGrad.ug);
 
   // comment/uncomment to test it
 
@@ -16,15 +16,16 @@ void main() {
 
 /// Print all the subjects on first page
 void subjectsFirstPage(Albiruni query) async {
-  var subjects = await query.fetch("SC4SH");
+  var (subjects, totalPages) = await query.fetch("SC4SH");
+  print('Total pages is $totalPages');
   for (var subject in subjects) {
-    print(subject);
+    print(subject.title);
   }
 }
 
 /// Subject can be search by their course code.
 void searchSubject(Albiruni query) async {
-  var subjects =
+  var (subjects, _) =
       await query.fetch("CFL", course: "tqtd2002".toAlbiruniFormat());
   for (var subject in subjects) {
     print(subject);
@@ -38,7 +39,7 @@ void subjectSection(Albiruni query) async {
   // some subject spans more than a page, so we can loop though each page
   // and try to find the section we want
   for (int i = 1;; i++) {
-    var subjects =
+    var (subjects, _) =
         await query.fetch("CFL", course: code.toAlbiruniFormat(), page: i);
     if (subjects.isEmpty) break;
     try {
@@ -53,20 +54,25 @@ void subjectSection(Albiruni query) async {
 // Get all the subject's course code from a kuliyyah
 void allSubjects(Albiruni query) async {
   List<String> courseCodes = [];
+  var kulliyyah = 'KAHS';
 
   int i = 1; // page number
 
-  // loop until it reached page with no data
-  while (true) {
-    try {
-      var res = await query.fetch("CCAC", page: i);
-      courseCodes.addAll(res.map((e) => e.code));
-    } catch (e) {
-      print('Error is thrown here. Mark the end of the subjects in a page.');
-      break;
+  // first fetch to determine the number of total pages
+  var (subjects, totalPages) = await query.fetch(kulliyyah, page: i);
+
+  // store the first page subjects
+  courseCodes.addAll(subjects.map((e) => e.code));
+
+  // fetch for the other pages
+  if (totalPages > 1) {
+    for (i = 2; i <= totalPages; i++) {
+      print('Getting page #$i');
+      var (subjects, _) = await query.fetch(kulliyyah, page: i);
+      courseCodes.addAll(subjects.map((e) => e.code));
     }
-    i++;
   }
+
   courseCodes = courseCodes.toSet().toList(); //remove duplication
   print(courseCodes.join(', ')); // all course codes
   print('Total: ${courseCodes.length}'); // number of courses

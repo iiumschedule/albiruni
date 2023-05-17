@@ -8,10 +8,10 @@ class Subject {
   /// Name of the course. Example: "INDUSTRIAL AUTOMATION"
   late String title;
 
-  /// Venue. It can be null
+  /// Venue. Return `null` is venue is TBD
   String? venue;
 
-  /// Section
+  /// Class section
   late int sect;
 
   /// Credit hour
@@ -20,7 +20,9 @@ class Subject {
   /// List of lecturer(s) teaching the subject
   late List<String> lect;
 
-  /// Day and Time for the class. It can be null.
+  /// Day and Time for the class.
+  ///
+  /// Returns `null` if no day & time is specified.
   late List<DayTime?> dayTime;
 
   Subject({

@@ -29,7 +29,7 @@ Fetch of subjects for Kuliyyah of Economics for semester 1, 2021/2022 session:
 // Create albiruni instance
 Albiruni albiruni = Albiruni(semester: 1, session: "2021/2022");
 // Use methods available in the classes
-subjects = await albiruni.fetch("ECONS");
+var (subjects, totalPage) = await albiruni.fetch("ECONS");
 ```
 
 Supports both Undergraduate and Postgraduate studies. Pass the `StudyGrade.ug` (default) or `StudyGrade.pg`.
@@ -87,7 +87,7 @@ Example JSON:
 }
 ```
 
-Parse it like follow:
+Parse it like following:
 
 ```dart
 var data = <yourjsonstring>
@@ -140,7 +140,8 @@ I think that's it for the basic usage of this library, of course, you can always
 
 This list of available kulliyyah might change over time, kindly refer to https://iiumschedule.iqfareez.com/docs/devs/albiruni#list-of-available-kulliyyah
 
-## Additional information
+## Related information
 
 - [IIUM Course Schedule Portal](https://albiruni.iium.edu.my/myapps/StudentOnline/schedule1.php)
 - [IIUM Schedule App](https://iiumschedule.iqfareez.com)
+- Experiment: [albiruni-api](https://github.com/iqfareez/albiruni-api)

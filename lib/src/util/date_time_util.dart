@@ -62,6 +62,15 @@ class DateTimeUtil {
       ];
     }
 
+    if (rawDay == 'MTTHF') {
+      return [
+        DateTime.monday,
+        DateTime.tuesday,
+        DateTime.thursday,
+        DateTime.friday
+      ];
+    }
+
     // check for other days
     var days = rawDay.split('-'); // split 'M-W' to ['M', 'W']
     return days.map((e) => _dayMap(e)).toList();

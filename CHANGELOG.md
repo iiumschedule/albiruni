@@ -1,3 +1,9 @@
+## 1.3.0
+
+- :arrow_up: Upgrade to **Dart 3**
+- :sparkles: The `.fetch()` method now returns a records of list of Subjects & total pages available. [#6](https://github.com/iqfareez/albiruni/issues/6)
+- :bug: Added new case for rare day parsing. [#1](https://github.com/iqfareez/albiruni/issues/1#issuecomment-1544954628)
+
 ## 1.2.4
 
 - :bug: Fixed another bug related to parsing subject day & time. Refer [#1 (Comment)](https://github.com/iqfareez/albiruni/issues/1#issuecomment-1470978605)

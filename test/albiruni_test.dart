@@ -7,7 +7,8 @@ void main() {
   test('Reachability', () async {
     late List<Subject> albiruni;
     try {
-      albiruni = await Albiruni(session: "2021/2022", semester: 1).fetch("AED");
+      (albiruni, _) =
+          await Albiruni(session: "2021/2022", semester: 1).fetch("AED");
     } on HandshakeException catch (e) {
       print("Might be albiruni cert error. $e");
       return;
@@ -17,7 +18,7 @@ void main() {
   });
 
   test('Reachability proxy', () async {
-    final albiruni = await Albiruni(session: "2021/2022", semester: 1)
+    final (albiruni, _) = await Albiruni(session: "2021/2022", semester: 1)
         .fetch("ECONS", useProxy: true);
     print('Content length: ${albiruni.length}');
     expect(albiruni, isNotEmpty);
