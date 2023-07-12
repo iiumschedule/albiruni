@@ -1,3 +1,7 @@
+## 1.4.0
+
+- Upgrade package [http](https://pub.dev/packages/http) to `1.1.0` (upgrade major version, might be breaking changes)
+
 ## 1.3.0
 
 - :arrow_up: Upgrade to **Dart 3**

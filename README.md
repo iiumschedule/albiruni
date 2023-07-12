@@ -110,7 +110,7 @@ I think that's it for the basic usage of this library, of course, you can always
 
 - HandshakeException: [CERTIFICATE_VERIFY_FAILED](https://github.com/iqfareez/iium_schedule/issues/10) error.
 
-  This happens when the albiruni server has some certificate issues. Some clients might reject the requests. If you're in development, try [this answer from SO](https://stackoverflow.com/a/61312927/13617136).
+  This happens when the albiruni server has some [certificate issues](https://github.com/iqfareez/iium_schedule/issues/10#issuecomment-1086550494). Some clients might reject the requests. If you're in development, try [this answer from SO](https://stackoverflow.com/a/61312927/13617136).
 
 ## List of available kulliyyah (as of 31/7/2022)
 
@@ -144,4 +144,4 @@ This list of available kulliyyah might change over time, kindly refer to https:/
 
 - [IIUM Course Schedule Portal](https://albiruni.iium.edu.my/myapps/StudentOnline/schedule1.php)
 - [IIUM Schedule App](https://iiumschedule.iqfareez.com)
-- Experiment: [albiruni-api](https://github.com/iqfareez/albiruni-api)
+- Experimental: [albiruni-api](https://github.com/iqfareez/albiruni-api)
