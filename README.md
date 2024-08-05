@@ -19,6 +19,13 @@ A wrapper to easily access [IIUM's Course Schedule](https://albiruni.iium.edu.my
 
 Thank you [**@PlashSpeed-Aiman**](https://github.com/PlashSpeed-Aiman) for the [code](https://github.com/PlashSpeed-Aiman/IIUMCourseScheduleApp) foundation.
 
+## Get Started
+
+1. Run `dart pub get`
+2. Start development. Make sure to update/add the test file if needed. Run `dart test` to run test suite.
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/iiumschedule/albiruni)
+
 ## Features
 
 ### Get a list of subjects offered
