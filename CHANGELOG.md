@@ -1,6 +1,11 @@
+## 1.4.1
+
+- :bug: Fix issue where some compounded days format (eg: `TWTH`) could not be parse. See [#8](https://github.com/iiumschedule/albiruni/issues/8), [#10](https://github.com/iiumschedule/albiruni/issues/10)
+- :pencil2: Update some classes documentation
+
 ## 1.4.0
 
-- Upgrade package [http](https://pub.dev/packages/http) to `1.1.0` (upgrade major version, might be breaking changes)
+- :arrow_up: Upgrade package [http](https://pub.dev/packages/http) to `1.1.0` (upgrade major version, might be breaking changes)
 
 ## 1.3.0
 

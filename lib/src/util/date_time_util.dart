@@ -3,8 +3,9 @@ import 'package:intl/intl.dart';
 
 /// Utility classes to parse raw data to proper data
 class DateTimeUtil {
-  /// Map day in String to integers
-  static int _dayMap(String day) {
+  /// Map day in String to DateTime day integer
+  /// Return null if cannot parse
+  static int? _dayMap(String day) {
     switch (day) {
       case 'MON':
       case 'M':
@@ -26,54 +27,52 @@ class DateTimeUtil {
       case 'SUN':
         return DateTime.sunday;
       default:
-        throw DayTimeParseException(message: "Unable to parse day: $day");
+        return null;
     }
   }
 
-  /// Parse the given raw day format and return a Day number
+  /// Parse the given raw day format and return a Day number. If failed to parse,
+  /// it will return empty list
   ///
   /// Eg: Given 'MON', return [DateTime.monday]
   static List<int> parseDays(String rawDay) {
     rawDay = rawDay.trim(); // remove all whitespaces (just in case)
 
-    // check for special cases (https://github.com/iqfareez/albiruni/issues/1)
-    if (rawDay == 'MTW') {
-      return [
-        DateTime.monday,
-        DateTime.tuesday,
-        DateTime.wednesday,
-      ];
-    }
-    if (rawDay == 'MTWTH') {
-      return [
-        DateTime.monday,
-        DateTime.tuesday,
-        DateTime.wednesday,
-        DateTime.thursday
-      ];
-    }
-    if (rawDay == 'MTWTHF') {
-      return [
-        DateTime.monday,
-        DateTime.tuesday,
-        DateTime.wednesday,
-        DateTime.thursday,
-        DateTime.friday
-      ];
-    }
+    // Attempt to parse single day
+    final resultDay = _dayMap(rawDay);
+    if (resultDay != null) return [resultDay];
 
-    if (rawDay == 'MTTHF') {
-      return [
-        DateTime.monday,
-        DateTime.tuesday,
-        DateTime.thursday,
-        DateTime.friday
-      ];
-    }
-
-    // check for other days
+    // Attempt to hyphen-seperated compound days
     var days = rawDay.split('-'); // split 'M-W' to ['M', 'W']
-    return days.map((e) => _dayMap(e)).toList();
+    final resultDays =
+        days.map((e) => _dayMap(e)).where((e) => e != null).toList();
+    if (resultDays.isNotEmpty) return resultDays.map((e) => e!).toList();
+
+    // Attempt to non-hyphen-seperated compound days
+
+    // check for special cases (https://github.com/iqfareez/albiruni/issues/1)
+
+    List<int> complexCompoundResult = [];
+    int i = 0;
+
+    while (i < rawDay.length) {
+      // Check for two-character day codes first (like 'TH' or 'SU')
+      if (i < rawDay.length - 1 &&
+          _dayMap(rawDay.substring(i, i + 2)) != null) {
+        complexCompoundResult.add(_dayMap(rawDay.substring(i, i + 2))!);
+        i += 2;
+      } else {
+        // Otherwise, check for one-character day codes
+        if (_dayMap(rawDay[i]) != null) {
+          complexCompoundResult.add(_dayMap(rawDay[i])!);
+        }
+        i += 1;
+      }
+    }
+
+    if (complexCompoundResult.isNotEmpty) return complexCompoundResult;
+
+    return [];
   }
 
   /// Parse weirdly formatted time in String to [DayTime] object

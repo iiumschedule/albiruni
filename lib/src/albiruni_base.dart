@@ -44,7 +44,9 @@ class Albiruni {
   final _baseUrl = 'albiruni.iium.edu.my/myapps/StudentOnline/schedule1.php';
   final _proxyUrl = 'corsproxyuia.up.railway.app/';
 
-  /// Fetch a list of subjects based on your specification.
+  /// Fetch a list of subjects for the given [kulliyah].
+  ///
+  /// See list of [kulliyah] here: https://iiumschedule.iqfareez.com/docs/devs/albiruni#list-of-available-kulliyyah (Look at column "keys")
   ///
   /// [course] is optional. Example: "AAD 3190", "MCTE 3312". The 4 digit number can be omitted. Example: "EECE".
   ///

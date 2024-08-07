@@ -119,10 +119,11 @@ I think that's it for the basic usage of this library, of course, you can always
 
   This happens when the albiruni server has some [certificate issues](https://github.com/iqfareez/iium_schedule/issues/10#issuecomment-1086550494). Some clients might reject the requests. If you're in development, try [this answer from SO](https://stackoverflow.com/a/61312927/13617136).
 
-## List of available kulliyyah (as of 31/7/2022)
+## List of available kulliyyah (as of 7 August 2024)
 
 |  Code   | Name                                                    |
 | :-----: | ------------------------------------------------------- |
+| `IRKHS` | AHAS KIRKHS                                             |
 | `KAHS`  | ALLIED HEALTH SCIENCES                                  |
 |  `AED`  | ARCHITECTURE                                            |
 | `BRIDG` | BRIDGING PROGRAMME                                      |
@@ -134,14 +135,14 @@ I think that's it for the basic usage of this library, of course, you can always
 | `ECONS` | ENMS                                                    |
 | `KICT`  | ICT                                                     |
 | `IHART` | INTERNATIONAL INSTITUTE FOR HALAL RESEARCH AND TRAINING |
-| `IRKHS` | IRKHS                                                   |
 | `IIBF`  | ISLAMIC BANKING AND FINANCE                             |
 | `ISTAC` | ISTAC                                                   |
-|  `KLM`  | KLM                                                     |
+|  `KLM`  | KSTCL KLM                                               |
 | `LAWS`  | LAWS                                                    |
 | `MEDIC` | MEDICINE                                                |
 | `NURS`  | NURSING                                                 |
 | `PHARM` | PHARMACY                                                |
+| `PLNET` | PLANETARY SURVIVAL FOR SUSTAINABLE WELL-BEING           |
 |  `KOS`  | SCIENCE                                                 |
 | `SC4SH` | SEJAHTERA CENTRE FOR SUSTAINABILTY AND HUMANITY         |
 

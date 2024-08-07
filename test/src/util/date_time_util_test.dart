@@ -1,14 +1,9 @@
 import 'package:albiruni/src/util/date_time_util.dart';
-import 'package:albiruni/src/util/exceptions.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Day parsing', () {
-    test('Parse days from raw', () {
-      /**
-       * Single day
-       */
-
+  group('Day Parsing', () {
+    test('Single Day Parse', () {
       var rawDay = 'MON';
       var resDay = DateTimeUtil.parseDays(rawDay);
       expect(resDay, [DateTime.monday]);
@@ -16,13 +11,11 @@ void main() {
       rawDay = 'FRI';
       resDay = DateTimeUtil.parseDays(rawDay);
       expect(resDay, [DateTime.friday]);
+    });
 
-      /**
-       * Compound days
-       */
-
-      rawDay = 'M-W'; // Monday & Wednesday
-      resDay = DateTimeUtil.parseDays(rawDay);
+    test('Compounded Days Parse (With hyphen)', () {
+      var rawDay = 'M-W'; // Monday & Wednesday
+      var resDay = DateTimeUtil.parseDays(rawDay);
       expect(resDay, [DateTime.monday, DateTime.wednesday]);
 
       rawDay = 'T-TH'; // Tuesday & Thursday
@@ -49,12 +42,11 @@ void main() {
           DateTime.friday,
         ]),
       );
+    });
 
-      /**
-       * Special cases
-       */
-      rawDay = 'MTWTH';
-      resDay = DateTimeUtil.parseDays(rawDay);
+    test('Compounded Days Parse (Without hyphen)', () {
+      var rawDay = 'MTWTH';
+      var resDay = DateTimeUtil.parseDays(rawDay);
       expect(resDay, [
         DateTime.monday,
         DateTime.tuesday,
@@ -80,12 +72,18 @@ void main() {
         DateTime.wednesday,
       ]);
 
-      /**
-       * Invalid
-       */
-      rawDay = 'MEOW';
-      expect(() => DateTimeUtil.parseDays(rawDay),
-          throwsA(isA<DayTimeParseException>()));
+      rawDay = 'TWTH';
+      resDay = DateTimeUtil.parseDays(rawDay);
+      expect(resDay, [
+        DateTime.tuesday,
+        DateTime.wednesday,
+        DateTime.thursday,
+      ]);
+    });
+
+    test('Invalid day parse', () {
+      var rawDay = 'XYZ';
+      expect(DateTimeUtil.parseDays(rawDay), []);
     });
   });
 
