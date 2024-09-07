@@ -23,7 +23,7 @@ import '../model/subject.dart';
 
   int totalPages = parseTotalPages(elements[0]);
 
-  // Iteratoing each row to parse the contents
+  // Iterating each row to parse the contents
   for (var i = 2; i < elements.length - 1; i++) {
     Subject res = parseSubject(elements[i]);
     subjects.add(res);
