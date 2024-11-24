@@ -1,3 +1,7 @@
+## 1.4.2
+
+- :bug: Fixes error that occured when subject doesn't have time info. Fixes issue [#11](https://github.com/iiumschedule/albiruni/issues/11)
+
 ## 1.4.1
 
 - :bug: Fix issue where some compounded days format (eg: `TWTH`) could not be parse. See [#8](https://github.com/iiumschedule/albiruni/issues/8), [#10](https://github.com/iiumschedule/albiruni/issues/10)

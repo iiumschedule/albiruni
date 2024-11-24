@@ -70,7 +70,7 @@ Subject parseSubject(Element element) {
 
   List<DayTime?> dayTime = [];
   // Only process day & time if they're exist
-  if (day.isNotEmpty) {
+  if (day.isNotEmpty && time.isNotEmpty) {
     List<TempDayTime> tempDayTime = [];
 
     // Combine the day & time into DayTime object
