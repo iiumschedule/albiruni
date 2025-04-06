@@ -117,6 +117,13 @@ void main() {
       expect(resTime.endTime, '22:00');
     });
 
+    test('Colon seperator', () {
+      String rawTime = '10:30 - 11:30 AM';
+      var resTime = DateTimeUtil.parseTime(rawTime);
+      expect(resTime!.startTime, '10:30');
+      expect(resTime.endTime, '11:30');
+    });
+
     group('Startime in AM but endtime in PM', () {
       test('Exhibit A', () {
         String rawTime = '11.30 - 12.50 AM';

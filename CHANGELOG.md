@@ -1,3 +1,8 @@
+## 1.4.3
+
+- :sparkles: Parse time with colon format. Example: `10:30 - 11:30 AM`
+- :arrow_up: Upgrade dependencies
+
 ## 1.4.2
 
 - :bug: Fixes error that occured when subject doesn't have time info. Fixes issue [#11](https://github.com/iiumschedule/albiruni/issues/11)

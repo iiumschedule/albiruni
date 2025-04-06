@@ -83,6 +83,10 @@ class DateTimeUtil {
     var tempStartTime = split.first;
     var tempEndTime = split.last.split(" ").first;
 
+    // Convert colon format to dot format
+    tempStartTime = tempStartTime.replaceAll(':', '.');
+    tempEndTime = tempEndTime.replaceAll(':', '.');
+
     if (!tempStartTime.contains('.')) tempStartTime = '$tempStartTime.00';
     if (!tempEndTime.contains('.')) {
       tempEndTime = '$tempEndTime.00';
