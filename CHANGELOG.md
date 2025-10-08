@@ -1,3 +1,7 @@
+## 1.4.4
+
+- :memo: Update README to include up to date kulliyyah list. Related issue [#12](https://github.com/iiumschedule/albiruni/issues/12)
+
 ## 1.4.3
 
 - :sparkles: Parse time with colon format. Example: `10:30 - 11:30 AM`
