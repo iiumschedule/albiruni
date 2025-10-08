@@ -1,16 +1,3 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
-
 [![Dart](https://img.shields.io/badge/dart-%230175C2.svg?logo=dart&logoColor=white)](https://dart.dev/)
 [![pub badge](https://img.shields.io/pub/v/albiruni.svg)](https://pub.dev/packages/albiruni)
 [![style: lints](https://img.shields.io/badge/style-lints-4BC0F5.svg)](https://pub.dev/packages/lints)
@@ -22,7 +9,7 @@ Thank you [**@PlashSpeed-Aiman**](https://github.com/PlashSpeed-Aiman) for the [
 ## Get Started
 
 1. Run `dart pub get`
-2. Start development. Make sure to update/add the test file if needed. Run `dart test` to run test suite.
+2. Start development. Make sure to update/add the test file if needed. Run `dart test` to run the test suite.
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/iiumschedule/albiruni)
 
@@ -30,7 +17,7 @@ Thank you [**@PlashSpeed-Aiman**](https://github.com/PlashSpeed-Aiman) for the [
 
 ### Get a list of subjects offered
 
-Fetch of subjects for Kuliyyah of Economics for semester 1, 2021/2022 session:
+Fetch subjects for the Kulliyyah of Economics for semester 1, 2021/2022 session:
 
 ```dart
 // Create albiruni instance
@@ -39,7 +26,7 @@ Albiruni albiruni = Albiruni(semester: 1, session: "2021/2022");
 var (subjects, totalPage) = await albiruni.fetch("ECONS");
 ```
 
-Supports both Undergraduate and Postgraduate studies. Pass the `StudyGrade.ug` (default) or `StudyGrade.pg`.
+Supports both Undergraduate and Postgraduate studies. Pass `StudyGrad.ug` (default) or `StudyGrad.pg`.
 
 ```dart
 Albiruni(semester: 1, session: "2022/2023", studyGrade: StudyGrad.pg);
@@ -53,7 +40,7 @@ Put the subject course code in the `course` parameter. The subject must be Albir
 fetch("ECONS", course: "ECON 1140");
 ```
 
-Here's some trick. Let's say you want to **filter** the courses for **third**-year subjects only, just provide the first digit and ignore the rest.
+Here's a trick: Let's say you want to **filter** the courses for **third**-year subjects only, just provide the first digit and ignore the rest.
 
 ```dart
 fetch("CCAC", course: "CCUB 3");
@@ -61,9 +48,9 @@ fetch("CCAC", course: "CCUB 3");
 
 ### Albiruni-formatted
 
-The course code **must** be in the following format: `ABCD 1234`. The first four characters are the subject code, and the last four characters are the subject number. The space is required. _In some cases, the course code format might be different but generally, it will look like this._
+The course code **must** be in the following format: `ABCD 1234`. The first four characters are the subject code, and the last four characters are the subject number. The space is required. _In some cases, the course code format might be different, but generally, it will look like this._
 
-Lucky for you, `.toAlbiruniFormat()` extension method will properly format the string for you. Useful when you're receiving input from the users etc.
+Luckily, the `.toAlbiruniFormat()` extension method will properly format the string for you. Useful when you're receiving input from users, etc.
 
 ```dart
 var userInput = "ccub2621";
@@ -72,7 +59,7 @@ fetch("CCAC", course: userInput.toAlbiruniFormat()); // formatted: CCUB 2621
 
 ### JSON
 
-Parse subject data from JSON to Dart object, use `fromJson()` constructor.
+To parse subject data from JSON to a Dart object, use the `fromJson()` constructor.
 
 Example JSON:
 
@@ -94,24 +81,24 @@ Example JSON:
 }
 ```
 
-Parse it like following:
+Parse it as follows:
 
 ```dart
 var data = <yourjsonstring>
 var subjects = Subject.fromJson(jsonDecode(data));
 ```
 
-Similarly, you can convert Dart object to JSON using `toJson()` method.
+Similarly, you can convert a Dart object to JSON using the `toJson()` method.
 
-I think that's it for the basic usage of this library, of course, you can always discover more. You can drop your inquiries in [issues](https://github.com/iqfareez/albiruni/issues) if you have any. More examples can be found in the `/example` folder.
+That's it for the basic usage of this library. Of course, you can always discover more. You can drop your inquiries in [issues](https://github.com/iqfareez/albiruni/issues) if you have any. More examples can be found in the `/example` folder.
 
 ## Common issues
 
 - XMLHttpRequest error or CORS error
 
-  **Update**: The proxy service has been shut down. I will remove the `useProxy` property in the few future release.
+  **Update**: The proxy service has been shut down. I will remove the `useProxy` property in a future release.
 
-  Usually occurs if you're developing for the web. Set `useProxy` flag to **true**. This will add a proxy layer between the client and the albiruni server.
+  This usually occurs if you're developing for the web. Set the `useProxy` flag to **true**. This will add a proxy layer between the client and the Albiruni server.
 
   ```dart
   fetch("ENGIN", course: "MCTE 3271", useProxy: true);
@@ -119,7 +106,7 @@ I think that's it for the basic usage of this library, of course, you can always
 
 - HandshakeException: [CERTIFICATE_VERIFY_FAILED](https://github.com/iqfareez/iium_schedule/issues/10) error.
 
-  This happens when the albiruni server has some [certificate issues](https://github.com/iqfareez/iium_schedule/issues/10#issuecomment-1086550494). Some clients might reject the requests. If you're in development, try [this answer from SO](https://stackoverflow.com/a/61312927/13617136).
+  This happens when the Albiruni server has some [certificate issues](https://github.com/iqfareez/iium_schedule/issues/10#issuecomment-1086550494). Some clients might reject the requests. If you're in development, try [this answer from SO](https://stackoverflow.com/a/61312927/13617136).
 
 ## List of available kulliyyah (as of 8 October 2025)
 
@@ -148,10 +135,9 @@ I think that's it for the basic usage of this library, of course, you can always
 | 20    |  `KOS`  | SCIENCE                                                 |
 | 21    | `SC4SH` | SEJAHTERA CENTRE FOR SUS                                |
 
-This list of available kulliyyah might change over time, kindly refer to https://iiumschedule.iqfareez.com/docs/devs/albiruni#list-of-available-kulliyyah
+This list of available kulliyyah might change over time. Kindly refer to https://iiumschedule.iqfareez.com/docs/devs/albiruni#list-of-available-kulliyyah
 
 ## Related information
 
 - [IIUM Course Schedule Portal](https://albiruni.iium.edu.my/myapps/StudentOnline/schedule1.php)
 - [IIUM Schedule App](https://iiumschedule.iqfareez.com)
-- Experimental: [albiruni-api](https://github.com/iqfareez/albiruni-api)
