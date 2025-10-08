@@ -109,6 +109,8 @@ I think that's it for the basic usage of this library, of course, you can always
 
 - XMLHttpRequest error or CORS error
 
+  **Update**: The proxy service has been shut down. I will remove the `useProxy` property in the few future release.
+
   Usually occurs if you're developing for the web. Set `useProxy` flag to **true**. This will add a proxy layer between the client and the albiruni server.
 
   ```dart
@@ -119,32 +121,32 @@ I think that's it for the basic usage of this library, of course, you can always
 
   This happens when the albiruni server has some [certificate issues](https://github.com/iqfareez/iium_schedule/issues/10#issuecomment-1086550494). Some clients might reject the requests. If you're in development, try [this answer from SO](https://stackoverflow.com/a/61312927/13617136).
 
-## List of available kulliyyah (as of 7 August 2024)
+## List of available kulliyyah (as of 8 October 2025)
 
-|  Code   | Name                                                    |
-| :-----: | ------------------------------------------------------- |
-| `IRKHS` | AHAS KIRKHS                                             |
-| `KAHS`  | ALLIED HEALTH SCIENCES                                  |
-|  `AED`  | ARCHITECTURE                                            |
-| `BRIDG` | BRIDGING PROGRAMME                                      |
-|  `CFL`  | CELPAD                                                  |
-| `CCAC`  | COCU                                                    |
-| `DENT`  | DENTISTRY                                               |
-| `EDUC`  | EDUCATION                                               |
-| `ENGIN` | ENGIN                                                   |
-| `ECONS` | ENMS                                                    |
-| `KICT`  | ICT                                                     |
-| `IHART` | INTERNATIONAL INSTITUTE FOR HALAL RESEARCH AND TRAINING |
-| `IIBF`  | ISLAMIC BANKING AND FINANCE                             |
-| `ISTAC` | ISTAC                                                   |
-|  `KLM`  | KSTCL KLM                                               |
-| `LAWS`  | LAWS                                                    |
-| `MEDIC` | MEDICINE                                                |
-| `NURS`  | NURSING                                                 |
-| `PHARM` | PHARMACY                                                |
-| `PLNET` | PLANETARY SURVIVAL FOR SUSTAINABLE WELL-BEING           |
-|  `KOS`  | SCIENCE                                                 |
-| `SC4SH` | SEJAHTERA CENTRE FOR SUSTAINABILTY AND HUMANITY         |
+| Index |  Code   | Name                                                    |
+| ----- | :-----: | ------------------------------------------------------- |
+| 0     | `AHAS`  | AHAS KIRKHS                                             |
+| 1     | `KAHS`  | ALLIED HEALTH SCIENCES                                  |
+| 2     |  `AED`  | ARCHITECTURE                                            |
+| 3     | `BRIDG` | BRIDGING PROGRAMME                                      |
+| 4     |  `CFL`  | CELPAD                                                  |
+| 5     |  `CCC`  | CCC                                                     |
+| 6     | `DENT`  | DENTISTRY                                               |
+| 7     | `EDUC`  | EDUCATION                                               |
+| 8     | `ENGIN` | ENGIN                                                   |
+| 9     | `ECONS` | ENMS                                                    |
+| 10    | `KICT`  | ICT                                                     |
+| 11    | `IHART` | INTERNATIONAL INSTITUTE FOR HALAL RESEARCH AND TRAINING |
+| 12    | `IIBF`  | ISLAMIC BANKING AND FINANCE                             |
+| 13    | `ISTAC` | ISTAC                                                   |
+| 14    | `KSTCL` | KSTCL                                                   |
+| 15    | `LAWS`  | LAWS                                                    |
+| 16    | `MEDIC` | MEDICINE                                                |
+| 17    | `NURS`  | NURSING                                                 |
+| 18    | `PHARM` | PHARMACY                                                |
+| 19    | `PLNET` | PLANETARY SURVIVAL FOR SUSTAINABLE WELL-BEING           |
+| 20    |  `KOS`  | SCIENCE                                                 |
+| 21    | `SC4SH` | SEJAHTERA CENTRE FOR SUS                                |
 
 This list of available kulliyyah might change over time, kindly refer to https://iiumschedule.iqfareez.com/docs/devs/albiruni#list-of-available-kulliyyah
 
