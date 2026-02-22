@@ -1,3 +1,7 @@
+## 1.5.0
+
+- :boom: **[BREAKING CHANGES]** - Removed deprecated `useProxy` parameter from `fetch()` method. The proxy service has been shut down and is no longer supported.
+
 ## 1.4.4
 
 - :memo: Update README to include up to date kulliyyah list. Related issue [#12](https://github.com/iiumschedule/albiruni/issues/12)
@@ -80,11 +84,14 @@
 
 - :boom: **BREAKING CHANGES** - Kuliyyah parameter now is seperated from the albiruni constructor.
   - Before:
+
   ```dart
   var albiruni = Albiruni(kulliyah: "AED", semester: 2, session: "2021/2022");
   var subjects = await albiruni.fetch();
   ```
+
   - After:
+
   ```dart
   var albiruni = Albiruni(semester: 2, session: "2021/2022");
   var subjects = await albiruni.fetch("AED");
