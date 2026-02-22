@@ -27,21 +27,28 @@ class Albiruni {
   /// Study grade [ug] for Undergraduate, [pg] for Postgraduate
   late StudyGrad studyGrade;
 
-  late final String _basicParams;
-
   // Instantiate Albiruni object
   Albiruni({
     required this.semester,
     required this.session,
     this.studyGrade = StudyGrad.ug,
   }) : super() {
-    _basicParams =
-        "?action=view&sem=$semester&ses=$session&ctype=${studyGrade == StudyGrad.ug ? "<" : ">="}";
     sesShort =
         '${session.split('/').first.substring(2)}/${session.split('/').last.substring(2)}';
   }
 
-  final _baseUrl = 'albiruni.iium.edu.my/myapps/StudentOnline/schedule1.php';
+  static const _host = 'albiruni.iium.edu.my';
+  static const _path = '/myapps/StudentOnline/schedule1.php';
+
+  /// Build common query parameters for API requests
+  Map<String, String> _getBasicQueryParams() {
+    return {
+      'action': 'view',
+      'sem': semester.toString(),
+      'ses': session,
+      'ctype': studyGrade == StudyGrad.ug ? '<' : '>=',
+    };
+  }
 
   /// Fetch a list of subjects for the given [kulliyah].
   ///
@@ -54,17 +61,16 @@ class Albiruni {
   /// Returns a Records of list of [Subject] and total pages.
   Future<(List<Subject>, int)> fetch(String kulliyah,
       {String? course, int page = 1}) async {
-    if (course != null) {
-      course.replaceFirst(' ', '+').toUpperCase();
-    } else {
-      course = '';
-    }
-    var extraParams = "&kuly=$kulliyah&view=${page * 50}&course=$course";
+    var processedCourse =
+        course != null ? course.replaceFirst(' ', '+').toUpperCase() : '';
 
-    var finalUrl = 'https://$_baseUrl$_basicParams$extraParams';
-    // print('Query URL: $finalUrl');
+    var queryParams = _getBasicQueryParams();
+    queryParams['kuly'] = kulliyah;
+    queryParams['view'] = (page * 50).toString();
+    queryParams['course'] = processedCourse;
 
-    var res = await http.get(Uri.parse(finalUrl));
+    var uri = Uri.https(_host, _path, queryParams);
+    var res = await http.get(uri);
     return parseAlbiruniHtml(res.body);
   }
 
@@ -72,10 +78,12 @@ class Albiruni {
   ///
   /// Return `true` if there is atleast one subject in the current scope.
   Future<bool> preflight(String kulliyah) async {
-    var firstPage = "&view=50";
-    var kull = "&kuly=$kulliyah";
-    var res = await http
-        .get(Uri.parse('https://$_baseUrl$_basicParams$kull$firstPage'));
+    var queryParams = _getBasicQueryParams();
+    queryParams['kuly'] = kulliyah;
+    queryParams['view'] = '50';
+
+    var uri = Uri.https(_host, _path, queryParams);
+    var res = await http.get(uri);
     var document = parse(res.body);
     var elements = document.getElementsByTagName("tbody");
 
