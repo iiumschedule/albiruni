@@ -16,11 +16,4 @@ void main() {
     print('Content length: ${albiruni.length}');
     expect(albiruni, isNotEmpty);
   });
-
-  test('Reachability proxy', () async {
-    final (albiruni, _) = await Albiruni(session: "2021/2022", semester: 1)
-        .fetch("ECONS", useProxy: true);
-    print('Content length: ${albiruni.length}');
-    expect(albiruni, isNotEmpty);
-  });
 }

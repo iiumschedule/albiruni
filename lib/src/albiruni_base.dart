@@ -42,7 +42,6 @@ class Albiruni {
   }
 
   final _baseUrl = 'albiruni.iium.edu.my/myapps/StudentOnline/schedule1.php';
-  final _proxyUrl = 'corsproxyuia.up.railway.app/';
 
   /// Fetch a list of subjects for the given [kulliyah].
   ///
@@ -52,11 +51,9 @@ class Albiruni {
   ///
   /// One page holds about 50 entries. Navigate to the next page using the [page] parameter. Default is `1`.
   ///
-  /// if [useProxy] is set to true, request to albiruni will go through a proxy server. Useful when using dealing with CORS issue.
-  ///
   /// Returns a Records of list of [Subject] and total pages.
   Future<(List<Subject>, int)> fetch(String kulliyah,
-      {String? course, int page = 1, bool useProxy = false}) async {
+      {String? course, int page = 1}) async {
     if (course != null) {
       course.replaceFirst(' ', '+').toUpperCase();
     } else {
@@ -64,8 +61,7 @@ class Albiruni {
     }
     var extraParams = "&kuly=$kulliyah&view=${page * 50}&course=$course";
 
-    var finalUrl =
-        'https://${useProxy ? _proxyUrl : ''}$_baseUrl$_basicParams$extraParams';
+    var finalUrl = 'https://$_baseUrl$_basicParams$extraParams';
     // print('Query URL: $finalUrl');
 
     var res = await http.get(Uri.parse(finalUrl));

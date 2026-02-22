@@ -94,16 +94,6 @@ That's it for the basic usage of this library. Of course, you can always discove
 
 ## Common issues
 
-- XMLHttpRequest error or CORS error
-
-  **Update**: The proxy service has been shut down. I will remove the `useProxy` property in a future release.
-
-  This usually occurs if you're developing for the web. Set the `useProxy` flag to **true**. This will add a proxy layer between the client and the Albiruni server.
-
-  ```dart
-  fetch("ENGIN", course: "MCTE 3271", useProxy: true);
-  ```
-
 - HandshakeException: [CERTIFICATE_VERIFY_FAILED](https://github.com/iqfareez/iium_schedule/issues/10) error.
 
   This happens when the Albiruni server has some [certificate issues](https://github.com/iqfareez/iium_schedule/issues/10#issuecomment-1086550494). Some clients might reject the requests. If you're in development, try [this answer from SO](https://stackoverflow.com/a/61312927/13617136).
