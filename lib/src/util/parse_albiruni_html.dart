@@ -7,7 +7,7 @@ import 'package:html/parser.dart';
 import '../model/subject.dart';
 
 /// Parse raw Albiruni body (HTML) to list of [Subject]
-(List<Subject>, int) parseAlbiruniHtml(String htmlBody) {
+(List<Subject> subjects, int totalPages) parseAlbiruniHtml(String htmlBody) {
   List<Subject> subjects = [];
   var document = parse(htmlBody);
   var elements = document.getElementsByTagName("tbody");
@@ -106,21 +106,27 @@ Subject parseSubject(Element element) {
   );
 }
 
-/// Parse total pages from a scope
-///
-/// JS equivalent:
-/// var tdElement = document.getElementsByTagName("tbody")[1].children[0].querySelector("td[colspan]");
-/// var aElements = tdElement.querySelectorAll("a");
-/// Array.prototype.filter.call(tdElement.children, function(child) {
-///   return child.nodeName === "A";
-/// }).length;
+/// Parse total pages from a pagination row element
 int parseTotalPages(Element element) {
-  var res = element
-      .querySelector("td")!
-      .children
-      .where((element) => element.localName == "a")
+  var td = element.querySelector("td")!;
+
+  if (td.children.isEmpty) {
+    // No pagination links, so only 1 page exists.
+    // Screenshot: https://imgur.com/mb2xmFl
+    return 1;
+  }
+
+  // Count numeric <a> elements (page links), excluding nav buttons like PREV/NEXT.
+  // Screenshot: https://imgur.com/cgiqYib
+  var numericLinks = td.children
+      .where((e) => e.localName == "a" && int.tryParse(e.text.trim()) != null)
       .length;
 
-  // When no <a> element exist, which means this scope has no other pages, only one page
-  return res == 0 ? 1 : res;
+  // Count <b> elements with numeric text — the current page is shown in bold,
+  // not as an <a> link.
+  var boldCurrentPages = td.children
+      .where((e) => e.localName == "b" && int.tryParse(e.text.trim()) != null)
+      .length;
+
+  return numericLinks + boldCurrentPages;
 }
