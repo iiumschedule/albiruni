@@ -1,3 +1,7 @@
+## 1.5.1
+
+- :bug: Fixes a bug where totalPage value were being inconsistent. Issue [#13](https://github.com/iiumschedule/albiruni/issues/13)
+
 ## 1.5.0
 
 - :boom: **[BREAKING CHANGES]** - Removed deprecated `useProxy` parameter from `fetch()` method. The proxy service has been shut down and is no longer supported.
