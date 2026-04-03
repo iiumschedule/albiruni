@@ -59,7 +59,7 @@ class Albiruni {
   /// One page holds about 50 entries. Navigate to the next page using the [page] parameter. Default is `1`.
   ///
   /// Returns a Records of list of [Subject] and total pages.
-  Future<(List<Subject>, int)> fetch(String kulliyah,
+  Future<(List<Subject> subjects, int totalPages)> fetch(String kulliyah,
       {String? course, int page = 1}) async {
     var processedCourse =
         course != null ? course.replaceFirst(' ', '+').toUpperCase() : '';

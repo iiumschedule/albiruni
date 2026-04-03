@@ -5,8 +5,7 @@ import 'package:test/test.dart';
 
 void main() {
   test('Test parser (HTML to Albiruni object)', () async {
-    String rawResponse =
-        '''
+    String rawResponse = '''
 <html>
 <head>
 <title>Course Schedule</title>
@@ -227,8 +226,7 @@ else {
 
   test('Parse Subject from HTML element (Multiple lecturers, no venue)', () {
     // from ENGINE 2022/2023 Semester 1
-    var rawElement = Element.html(
-        '''
+    var rawElement = Element.html('''
  <tr bgcolor=f5f5f5 valign="top">
                 <td width="9%" align="left"  >BTEN 3183</td>
                 <td width="3%" align="left" >2</td>
@@ -272,8 +270,7 @@ else {
 
   test('Parse Subject from HTML element (Multiple days)', () {
     // from KICT 2022/2023 Semester 1
-    var rawElement = Element.html(
-        '''
+    var rawElement = Element.html('''
 </tr>
               <tr bgcolor=ddddf5 valign="top">
                 <td width="9%" align="left"  >CSCI 4347</td>
@@ -311,8 +308,7 @@ else {
 
   test('Parse Subject from HTML element (Multiple days with tuto time)', () {
     // from KICT 2022/2023 Semester 1
-    var rawElement = Element.html(
-        '''
+    var rawElement = Element.html('''
 <tr bgcolor=ddddf5 valign="top">
                 <td width="9%" align="left"  >INFO 1303</td>
                 <td width="3%" align="left" >2</td>
@@ -356,8 +352,7 @@ else {
   });
 
   test('Parse subject from HTML (Multiple lect, only one day time)', () {
-    var rawElement = Element.html(
-        '''
+    var rawElement = Element.html('''
 <tr bgcolor="f5f5f5" valign="top">
                 <td width="9%" align="left">CCUB 3164</td>
                 <td width="3%" align="left">29</td>
@@ -390,10 +385,74 @@ else {
         containsOnce(DayTime(day: 3, startTime: '15:30', endTime: '16:30')));
   });
 
+  group('parseTotalPages', () {
+    Element paginationRow(String innerHtml) =>
+        Element.html('<tr><td colspan=5>$innerHtml</td></tr>');
+
+    test('Single page (no pagination links)', () {
+      var element = paginationRow('');
+      expect(parseTotalPages(element), 1);
+    });
+
+    test('First page (current page bold, rest as links, NEXT button)', () {
+      // Simulates being on page 1 of 12: <B>1</B> 2 3 ... 12 NEXT
+      var element = paginationRow('<B>1</B>&nbsp;&nbsp;'
+          '<a href="#">2</a>&nbsp;&nbsp;'
+          '<a href="#">3</a>&nbsp;&nbsp;'
+          '<a href="#">4</a>&nbsp;&nbsp;'
+          '<a href="#">5</a>&nbsp;&nbsp;'
+          '<a href="#">6</a>&nbsp;&nbsp;'
+          '<a href="#">7</a>&nbsp;&nbsp;'
+          '<a href="#">8</a>&nbsp;&nbsp;'
+          '<a href="#">9</a>&nbsp;&nbsp;'
+          '<a href="#">10</a>&nbsp;&nbsp;'
+          '<a href="#">11</a>&nbsp;&nbsp;'
+          '<a href="#">12</a>&nbsp;&nbsp;'
+          '<a href="#">NEXT</a>');
+      expect(parseTotalPages(element), 12);
+    });
+
+    test('Middle page (PREV, numeric links, current page bold, NEXT)', () {
+      // Simulates being on page 5 of 12: PREV 1 2 3 4 <B>5</B> 6 ... 12 NEXT
+      var element = paginationRow('<a href="#">PREV</a>&nbsp;&nbsp;'
+          '<a href="#">1</a>&nbsp;&nbsp;'
+          '<a href="#">2</a>&nbsp;&nbsp;'
+          '<a href="#">3</a>&nbsp;&nbsp;'
+          '<a href="#">4</a>&nbsp;&nbsp;'
+          '<B>5</B>&nbsp;&nbsp;'
+          '<a href="#">6</a>&nbsp;&nbsp;'
+          '<a href="#">7</a>&nbsp;&nbsp;'
+          '<a href="#">8</a>&nbsp;&nbsp;'
+          '<a href="#">9</a>&nbsp;&nbsp;'
+          '<a href="#">10</a>&nbsp;&nbsp;'
+          '<a href="#">11</a>&nbsp;&nbsp;'
+          '<a href="#">12</a>&nbsp;&nbsp;'
+          '<a href="#">NEXT</a>');
+      expect(parseTotalPages(element), 12);
+    });
+
+    test('Last page (PREV, numeric links, current page bold)', () {
+      // Simulates being on page 12 of 12: PREV 1 2 ... 11 <B>12</B>
+      var element = paginationRow('<a href="#">PREV</a>&nbsp;&nbsp;'
+          '<a href="#">1</a>&nbsp;&nbsp;'
+          '<a href="#">2</a>&nbsp;&nbsp;'
+          '<a href="#">3</a>&nbsp;&nbsp;'
+          '<a href="#">4</a>&nbsp;&nbsp;'
+          '<a href="#">5</a>&nbsp;&nbsp;'
+          '<a href="#">6</a>&nbsp;&nbsp;'
+          '<a href="#">7</a>&nbsp;&nbsp;'
+          '<a href="#">8</a>&nbsp;&nbsp;'
+          '<a href="#">9</a>&nbsp;&nbsp;'
+          '<a href="#">10</a>&nbsp;&nbsp;'
+          '<a href="#">11</a>&nbsp;&nbsp;'
+          '<B>12</B>');
+      expect(parseTotalPages(element), 12);
+    });
+  });
+
   test('Parse Subject from HTML element (No time, no venue)', () {
     // from ENMS 2022/2023 Semester 1
-    var rawElement = Element.html(
-        '''
+    var rawElement = Element.html('''
 <tr bgcolor="ddddf5" valign="top">
                 <td width="9%" align="left">ISF 4214</td>
                 <td width="3%" align="left">1</td>
