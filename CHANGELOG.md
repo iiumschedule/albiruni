@@ -1,3 +1,7 @@
+## 1.5.2
+
+- :bug: Fixes a bug where searching for course will throw an error. Issue [#15](https://github.com/iiumschedule/albiruni/issues/15)
+
 ## 1.5.1
 
 - :bug: Fixes a bug where totalPage value were being inconsistent. Issue [#13](https://github.com/iiumschedule/albiruni/issues/13)
