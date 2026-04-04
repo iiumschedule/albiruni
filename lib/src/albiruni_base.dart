@@ -61,13 +61,12 @@ class Albiruni {
   /// Returns a Records of list of [Subject] and total pages.
   Future<(List<Subject> subjects, int totalPages)> fetch(String kulliyah,
       {String? course, int page = 1}) async {
-    var processedCourse =
-        course != null ? course.replaceFirst(' ', '+').toUpperCase() : '';
-
     var queryParams = _getBasicQueryParams();
     queryParams['kuly'] = kulliyah;
     queryParams['view'] = (page * 50).toString();
-    queryParams['course'] = processedCourse;
+    if (course != null) {
+      queryParams['course'] = course.toAlbiruniFormat();
+    }
 
     var uri = Uri.https(_host, _path, queryParams);
     var res = await http.get(uri);
